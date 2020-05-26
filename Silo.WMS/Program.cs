@@ -1,12 +1,9 @@
-﻿using Orleans;
+﻿using Microsoft.Extensions.Logging;
+using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace Silo.WMS
 {
@@ -44,9 +41,8 @@ namespace Silo.WMS
                     options.ClusterId = "dev";
                     options.ServiceId = "OrleansBasics";
                 })
-                .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(GrainImplement.WMS.WMS).Assembly).WithReferences())
                 .ConfigureLogging(logging => logging.AddConsole());
-
+            //ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(GrainImplement.WMS.WMS).Assembly).WithReferences())
             var host = builder.Build();
             await host.StartAsync();
             return host;
