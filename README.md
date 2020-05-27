@@ -1,6 +1,6 @@
 ### orleans ###
 
-[Orleans](http://dotnet.github.io/orleans/Documentation/tutorials_and_samples/overview_helloworld.html)builds on the developer productivity of .NET and brings it to the world of distributed applications, such as cloud services.</br>
+[Orleans](http://dotnet.github.io/orleans/Documentation/tutorials_and_samples/overview_helloworld.html) builds on the developer productivity of .NET and brings it to the world of distributed applications, such as cloud services.</br>
 
 ### kiwi.orleans ###
 kiwi.orleans built on the basis of Mircosoft.Orleans and Mircosoft.CNTK to provides map services, deep learning, deep reinforcement learning and other acpabilities of distributed applications.
