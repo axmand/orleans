@@ -13,5 +13,11 @@ namespace GrainInterface.WMS
         /// <param name="z"></param>
         /// <returns></returns>
         Task<string> GetTileImagePNG(int x, int y, int z);
+
+        /// <summary>
+        /// 检查chache是否完成
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> CheckCache(bool forceUpdate = false);
     }
 }

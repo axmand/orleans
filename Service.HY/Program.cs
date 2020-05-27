@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using GrainInterface.WMS;
+using Microsoft.Extensions.Logging;
+using Orleans;
+using Orleans.Configuration;
+using System;
 using System.Threading.Tasks;
 
-namespace Service.HY
+namespace Client.HY
 {
     class Program
     {
         static void Main(string[] args)
         {
+ 
+
+
         }
     }
 }
