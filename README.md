@@ -1,4 +1,18 @@
 # orleans
 
-Orleans是微软发布的分布式程序框架，[资料地址](http://dotnet.github.io/orleans/Documentation/tutorials_and_samples/overview_helloworld.html)
-> kiwi.orleans 是构建在Mircofost.Orleasn基础上，提供地图服务、分布式深度学习、分布式强化学习等能力，机器学习部分使用了CNKT框架
+[Orleans](http://dotnet.github.io/orleans/Documentation/tutorials_and_samples/overview_helloworld.html)builds on the developer productivity of .NET and brings it to the world of distributed applications, such as cloud services.
+> kiwi.orleans built on the basis of Mircosoft.Orleans and Mircosoft.CNTK to provides map services, deep learning, deep reinforcement learning and other acpabilities of distributed applications.
+
+### Add Orleans NuGet Pacakges ###
+```
+Project	Nuget Package
+Silo	Microsoft.Orleans.Server
+Silo	Microsoft.Extensions.Logging.Console
+Client	Microsoft.Extensions.Logging.Console
+Client	Microsoft.Orleans.Client
+Grain Interfaces	Microsoft.Orleans.Core.Abstractions
+Grain Interfaces	Microsoft.Orleans.CodeGenerator.MSBuild
+Grains	Microsoft.Orleans.CodeGenerator.MSBuild
+Grains	Microsoft.Orleans.Core.Abstractions
+Grains	Microsoft.Extensions.Logging.Abstractions
+```
