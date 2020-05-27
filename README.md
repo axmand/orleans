@@ -10,6 +10,9 @@ kiwi.orleans built on the basis of Mircosoft.Orleans and Mircosoft.CNTK to provi
 Project	Nuget Package
 Silo	Microsoft.Orleans.Server
 Silo	Microsoft.Extensions.Logging.Console
+//provider
+Silo Orleans.Providers.MongoDB
+
 Client	Microsoft.Extensions.Logging.Console
 Client	Microsoft.Orleans.Client
 Grain Interfaces	Microsoft.Orleans.Core.Abstractions
