@@ -7,7 +7,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Threading.Tasks;
 
 namespace GrainImplement.WMS.Util
@@ -21,6 +20,9 @@ namespace GrainImplement.WMS.Util
 
     public class Helper
     {
+        /// <summary>
+        /// 
+        /// </summary>
         static string connectString = "mongodb://localhost:27017";
 
         /// <summary>
@@ -74,11 +76,25 @@ namespace GrainImplement.WMS.Util
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pngId"></param>
+        /// <returns></returns>
         public async static Task<MemoryStream> QueryBitmap(string pngId)
         {
-            byte[] buffer = await bucket.DownloadAsBytesAsync(new ObjectId(pngId));
-            MemoryStream m = new MemoryStream(buffer);
-            return m;
+            try
+            {
+                byte[] buffer = await bucket.DownloadAsBytesAsync(new ObjectId(pngId));
+                MemoryStream m = new MemoryStream(buffer);
+                return m;
+            }
+            catch
+            {
+                byte[] buffer = new byte[] { 0 };
+                MemoryStream m = new MemoryStream(buffer);
+                return m;
+            }
         }
 
         /// <summary>

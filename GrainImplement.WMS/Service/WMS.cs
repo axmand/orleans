@@ -34,7 +34,7 @@ namespace GrainImplement.WMS.Service
         {
             await _tileCache.ReadStateAsync();
             TileCache cache = _tileCache.State.TILECACHE.Find(p => p.x ==x && p.y == y && p.z == z);
-            Stream sm = await Helper.QueryBitmap(cache.pngId);
+            Stream sm = await Helper.QueryBitmap(cache?.pngId);
             return sm;
         }
 
