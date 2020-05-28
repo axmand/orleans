@@ -1,5 +1,4 @@
-﻿using GrainImplement.WMS.Service;
-using GrainInterface.WMS;
+﻿using GrainInterface.WMS;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -7,39 +6,25 @@ using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
 using System;
-using System.Net;
 
 namespace Silo.WMS
 {
     class Program
     {
 
-        const string connectionString = "mongodb://localhost/WMS";
+        const string connectionString = "mongodb://localhost";
 
         static void Main()
         {
             ISiloHost build = new SiloHostBuilder()
+                //配置数据库持久化
                 .UseMongoDBClient(connectionString)
-                .UseMongoDBClustering(options =>
+                //"WMSTileCache" 内部编号
+                .AddMongoDBGrainStorage("WMSTileCache", options =>
                 {
+                    //在MongoDB中构建的数据库名字
                     options.DatabaseName = "WMS";
                     options.CreateShardKeyForCosmos = false;
-                })
-                .AddStartupTask(async (provider, ct) =>
-                {
-                    IGrainFactory grainFactory =provider.GetRequiredService<IGrainFactory>();
-                    await grainFactory.GetGrain<IWMS>((int)DateTime.UtcNow.TimeOfDay.Ticks).CheckCache(true);
-                })
-                .UseMongoDBReminders(options =>
-                {
-                    options.DatabaseName = "WMS";
-                    options.CreateShardKeyForCosmos = false;
-                })
-                .AddMongoDBGrainStorage("MongoDBStore", options =>
-                {
-                    options.DatabaseName = "WMS";
-                    options.CreateShardKeyForCosmos = false;
-
                     options.ConfigureJsonSerializerSettings = settings =>
                     {
                         settings.NullValueHandling = NullValueHandling.Include;
@@ -47,12 +32,24 @@ namespace Silo.WMS
                         settings.DefaultValueHandling = DefaultValueHandling.Populate;
                     };
                 })
-                  .Configure<ClusterOptions>(options =>
-                  {
-                      options.ClusterId = "WMSCluster";
-                      options.ServiceId = "WMSCluster";
-                  })
-                .ConfigureEndpoints(IPAddress.Loopback, 11111, 30000)
+                .AddMongoDBGrainStorage("WMSLogCache", options =>
+                {
+                    options.DatabaseName = "WMS";
+                    options.CreateShardKeyForCosmos = false;
+                    options.ConfigureJsonSerializerSettings = settings =>
+                    {
+                        settings.NullValueHandling = NullValueHandling.Include;
+                        settings.ObjectCreationHandling = ObjectCreationHandling.Replace;
+                        settings.DefaultValueHandling = DefaultValueHandling.Populate;
+                    };
+                })
+                //配置集群
+                .UseLocalhostClustering()
+                .Configure<ClusterOptions>(options =>
+                {
+                    options.ClusterId = "WMSCluster";
+                    options.ServiceId = "WMSCluster";
+                })
                 .ConfigureLogging(logging => logging.AddConsole())
                 .Build();
             //

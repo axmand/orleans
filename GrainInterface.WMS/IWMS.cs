@@ -1,4 +1,5 @@
 ﻿using Orleans;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace GrainInterface.WMS
@@ -12,12 +13,12 @@ namespace GrainInterface.WMS
         /// <param name="y"></param>
         /// <param name="z"></param>
         /// <returns></returns>
-        Task<string> GetTileImagePNG(int x, int y, int z);
+        Task<Stream> GetTileImagePNG(int x, int y, int z);
 
         /// <summary>
         /// 检查chache是否完成
         /// </summary>
         /// <returns></returns>
-        Task<bool> CheckCache(bool forceUpdate = false);
+        Task<bool> UpdateCache(bool forceUpdate = false);
     }
 }
