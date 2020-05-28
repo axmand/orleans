@@ -7,6 +7,7 @@ namespace GrainImplement.WMS.Cache
     [Serializable]
     public sealed class TileSchema
     {
+        //[BsonId]
         /// <summary>
         /// 
         /// </summary>

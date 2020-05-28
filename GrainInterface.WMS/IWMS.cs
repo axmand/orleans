@@ -19,6 +19,6 @@ namespace GrainInterface.WMS
         /// 检查chache是否完成
         /// </summary>
         /// <returns></returns>
-        Task<bool> UpdateCache(bool forceUpdate = false);
+        Task<bool> UpdateCache(bool forceUpdate = false, string dir = @"D:\Share\TMS\");
     }
 }

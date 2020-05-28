@@ -35,7 +35,6 @@ namespace GrainImplement.WMS.Service
             await _tileCache.ReadStateAsync();
             TileCache cache = _tileCache.State.TILECACHE.Find(p => p.x ==x && p.y == y && p.z == z);
             Stream sm = await Helper.QueryBitmap(cache.pngId);
-            //await WriteStateAsync();
             return sm;
         }
 
@@ -44,7 +43,7 @@ namespace GrainImplement.WMS.Service
         /// </summary>
         /// <param name="forceUpdate"></param>
         /// <returns></returns>
-        async Task<bool> IWMS.UpdateCache(bool forceUpdate)
+        async Task<bool> IWMS.UpdateCache(bool forceUpdate, string dir)
         {
             await _tileCache.ReadStateAsync();
             if (forceUpdate)
@@ -63,7 +62,7 @@ namespace GrainImplement.WMS.Service
                         });
                     }
                 };
-                Helper.StartCache(@"D:\Share\TMS\");
+                Helper.StartCache(dir);
             }
             await _tileCache.WriteStateAsync();
             return true;

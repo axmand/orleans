@@ -223,7 +223,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Grain.WMS\GrainImplement.WMS.csproj">
+    <ProjectReference Include="..\GrainImplement.WMS\GrainImplement.WMS.csproj">
       <Project>{d3b34e2d-9256-4874-981b-5ebd3db36f8c}</Project>
       <Name>GrainImplement.WMS</Name>
     </ProjectReference>

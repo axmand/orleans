@@ -1,4 +1,5 @@
-﻿using GrainInterface.WMS;
+﻿using Client.HY.Util;
+using GrainInterface.WMS;
 using Microsoft.Extensions.Logging;
 using Orleans;
 using Orleans.Configuration;
@@ -9,12 +10,12 @@ namespace Client.HY
 {
     class Program
     {
-        static IClusterClient client;
-
         static void Main(string[] args)
-        {
+        {       
+            //启动服务
+            Helper.Start();
 
-            client = new ClientBuilder()
+            Helper.client = new ClientBuilder()
                .ConfigureApplicationParts(options =>
                {
                    options.AddApplicationPart(typeof(IWMS).Assembly);
@@ -28,23 +29,11 @@ namespace Client.HY
                .ConfigureLogging(logging => logging.AddConsole())
                .Build();
 
-            client.Connect().Wait();
-
-            Timer t = new Timer();
-            t.Elapsed += T_Elapsed;
-            t.Interval = 5000;
-            t.Start();
-
+            //启动客户端
+            Helper.client.Connect().Wait();
 
             Console.ReadKey();
-        }
 
-        private async static void T_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            var vacationEmployee = client.GetGrain<IWMS>(0);
-            var sm = await vacationEmployee.GetTileImagePNG(1, 0, 1);
-            
-            //var vacationEmployeeId = vacationEmployee.UpdateCache(true);
         }
     }
 }
