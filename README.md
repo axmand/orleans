@@ -21,3 +21,8 @@ Grains	Microsoft.Orleans.CodeGenerator.MSBuild
 Grains	Microsoft.Orleans.Core.Abstractions
 Grains	Microsoft.Extensions.Logging.Abstractions
 ```
+
+### Configue MongoDB ###
+```
+mongod --dbpath <DB_PATH>
+```
