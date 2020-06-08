@@ -25,6 +25,5 @@ namespace Client.HY.Services
                 return null;
             }
         }
-
     }
 }

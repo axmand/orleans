@@ -185,6 +185,8 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Routes\Business.cs" />
+    <Compile Include="Routes\Users.cs" />
     <Compile Include="Routes\WMS.cs" />
     <Compile Include="Services\WMSService.cs" />
     <Compile Include="Util\AppHost.cs" />
