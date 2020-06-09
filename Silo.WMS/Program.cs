@@ -5,6 +5,7 @@ using Orleans;
 using Orleans.Configuration;
 using Orleans.Hosting;
 using System;
+using System.Net;
 
 namespace Silo.WMS
 {
@@ -16,6 +17,8 @@ namespace Silo.WMS
         static void Main()
         {
             ISiloHost build = new SiloHostBuilder()
+                //使用本地化构造，注意集群启动必须有不同的 SiloPort, GatewayPort
+                .UseLocalhostClustering(siloPort: 11112, gatewayPort: 30001)
                 //配置数据库持久化
                 .UseMongoDBClient(connectionString)
                 //"WMSTileCache" 内部编号
@@ -43,10 +46,10 @@ namespace Silo.WMS
                     };
                 })
                 //配置集群
-                .UseLocalhostClustering()
+                .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
                 .Configure<ClusterOptions>(options =>
                 {
-                    options.ClusterId = "WMSCluster";
+                    options.ClusterId = "WMSCluster_dev";
                     options.ServiceId = "WMSCluster";
                 })
                 .ConfigureLogging(logging => logging.AddConsole())

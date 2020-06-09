@@ -1,6 +1,6 @@
 ﻿using ServiceStack;
 
-namespace Client.HY.Routes
+namespace Client.HanYangYun.Routes
 {
     [Route("/layer/google/{z}/{x}/{y}", "GET")]
     public class GoogleLayer

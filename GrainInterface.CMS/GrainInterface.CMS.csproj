@@ -112,6 +112,15 @@
     <Reference Include="Orleans.Core.Abstractions, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Orleans.Core.Abstractions.3.2.0\lib\netstandard2.0\Orleans.Core.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Orleans.Runtime, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Orleans.OrleansRuntime.3.2.0\lib\netstandard2.0\Orleans.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Orleans.Runtime.Abstractions, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Orleans.Runtime.Abstractions.3.2.0\lib\netstandard2.0\Orleans.Runtime.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="OrleansProviders, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Orleans.OrleansProviders.3.2.0\lib\netstandard2.0\OrleansProviders.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -176,11 +185,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\ICMS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Customer\Customer.csproj">
+      <Project>{90C277ED-7E3B-4667-8DF1-9DD7A265AA41}</Project>
+      <Name>Customer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Orleans.CodeGenerator.MSBuild.3.2.0\build\Microsoft.Orleans.CodeGenerator.MSBuild.targets" Condition="Exists('..\packages\Microsoft.Orleans.CodeGenerator.MSBuild.3.2.0\build\Microsoft.Orleans.CodeGenerator.MSBuild.targets')" />

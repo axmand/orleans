@@ -41,11 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\Group.cs" />
+    <Compile Include="Entity\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entity\" />
     <Folder Include="Persistence\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Establishment\Establishment.csproj">
+      <Project>{2DF911BC-7C7C-463F-955F-D8B6257AD069}</Project>
+      <Name>Establishment</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

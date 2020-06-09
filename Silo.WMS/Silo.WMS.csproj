@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ADA2C5FA-EB7A-4BEE-B9BD-94DCC7312F39}</ProjectGuid>
+    <ProjectGuid>{46B65916-EB71-4E82-8D37-40E5166184E8}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Silo.WMS</RootNamespace>
     <AssemblyName>Silo.WMS</AssemblyName>

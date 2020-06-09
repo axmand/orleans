@@ -1,11 +1,11 @@
-﻿using Client.HY.Util;
+﻿using Client.HanYangYun.Util;
 using GrainInterface.WMS;
 using ServiceStack;
 using System.IO;
 
-namespace Client.HY.Services
+namespace Client.HanYangYun.Services
 {
-    public class WMSService : Service
+    public class WMSRestService : Service
     {
         /// <summary>
         /// 瓦片请求服务

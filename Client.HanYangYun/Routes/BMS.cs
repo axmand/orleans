@@ -1,6 +1,6 @@
 ﻿using ServiceStack;
 
-namespace Client.HY.Routes
+namespace Client.HanYangYun.Routes
 {
     /// <summary>
     /// 获取数据接口

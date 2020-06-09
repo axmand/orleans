@@ -188,10 +188,11 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Routes\Business.cs" />
-    <Compile Include="Routes\Users.cs" />
+    <Compile Include="Routes\BMS.cs" />
+    <Compile Include="Routes\CMS.cs" />
     <Compile Include="Routes\WMS.cs" />
-    <Compile Include="Services\WMSService.cs" />
+    <Compile Include="Services\CMSRestService.cs" />
+    <Compile Include="Services\WMSRestService.cs" />
     <Compile Include="Util\AppHost.cs" />
     <Compile Include="Util\Helper.cs" />
   </ItemGroup>
@@ -200,6 +201,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GrainInterface.CMS\GrainInterface.CMS.csproj">
+      <Project>{9e07c962-2323-4fd4-98d0-70baf2a11527}</Project>
+      <Name>GrainInterface.CMS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GrainInterface.WMS\GrainInterface.WMS.csproj">
       <Project>{7803a325-75e6-49c8-918b-b3e50fae039d}</Project>
       <Name>GrainInterface.WMS</Name>

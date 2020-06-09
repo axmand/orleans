@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Client.HY.Routes
+namespace GrainImplement.CMS
 {
-    /// <summary>
-    /// 用户管理
-    /// </summary>
-    public class Users
+    class Program
     {
+        static void Main(string[] args)
+        {
+        }
     }
 }

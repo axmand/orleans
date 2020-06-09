@@ -1,7 +1,7 @@
 ﻿using Funq;
 using ServiceStack;
 
-namespace Client.HY.Util
+namespace Client.HanYangYun.Util
 {
     /// <summary>
     /// Rest服务
