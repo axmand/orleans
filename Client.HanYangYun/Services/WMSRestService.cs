@@ -16,7 +16,7 @@ namespace Client.HanYangYun.Services
         {
             try
             {
-                IWMS wms = Helper.client.GetGrain<IWMS>(0);
+                IWMS wms = Helper.GetGrain<IWMS>(0);
                 Stream sm = wms.GetTileImagePNG(request.x, request.y, request.z).Result;
                 return sm;
             }

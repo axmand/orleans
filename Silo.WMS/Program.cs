@@ -49,8 +49,8 @@ namespace Silo.WMS
                 .Configure<EndpointOptions>(options => options.AdvertisedIPAddress = IPAddress.Loopback)
                 .Configure<ClusterOptions>(options =>
                 {
-                    options.ClusterId = "WMSCluster_dev";
-                    options.ServiceId = "WMSCluster";
+                    options.ClusterId = "dev";
+                    options.ServiceId = "Cluster";
                 })
                 .ConfigureLogging(logging => logging.AddConsole())
                 .Build();

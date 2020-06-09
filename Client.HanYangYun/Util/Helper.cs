@@ -1,4 +1,6 @@
-﻿using Orleans;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Orleans;
+using ServiceStack;
 using System;
 
 namespace Client.HanYangYun.Util
@@ -10,10 +12,14 @@ namespace Client.HanYangYun.Util
         /// </summary>
         public const string _url = "http://*:1338/";
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public static IClusterClient client;
+        public static IServiceCollection service = new ServiceCollection();
+
+        public static ServiceProvider provider;
+
+        public static T GetGrain<T>(int number) where T: Orleans.IGrainWithIntegerKey
+        {
+            return Helper.provider.GetRequiredService<IOrleansClient>().GetGrain<T>(number);
+        }
 
         /// <summary>
         /// 

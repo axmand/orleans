@@ -172,9 +172,6 @@
     <Reference Include="Orleans.Core.Abstractions, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Orleans.Core.Abstractions.3.2.0\lib\netstandard2.0\Orleans.Core.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Orleans.Providers.MongoDB, Version=3.1.7.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Orleans.Providers.MongoDB.3.1.7\lib\netstandard2.0\Orleans.Providers.MongoDB.dll</HintPath>
-    </Reference>
     <Reference Include="Orleans.Runtime, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Orleans.OrleansRuntime.3.2.0\lib\netstandard2.0\Orleans.Runtime.dll</HintPath>
     </Reference>

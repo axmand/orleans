@@ -1,48 +1,47 @@
 ﻿using Client.HanYangYun.Util;
 using GrainInterface.CMS;
 using GrainInterface.WMS;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
 using Orleans;
-using Orleans.Configuration;
 using System;
-using System.Net;
 
 namespace Client.HanYangYun
 {
     class Program
     {
         static void Main(string[] args)
-        {       
+        {
             //启动服务
             Helper.Start();
-            //集群地址配置
-            IPEndPoint[] gateways = new IPEndPoint[]{
-                new IPEndPoint(IPAddress.Loopback, 30000),
-                //new IPEndPoint(IPAddress.Loopback, 30001)
-            };
-            //构造集群客户端
-            Helper.client = new ClientBuilder()
-                .UseStaticClustering(gateways)
-               .ConfigureApplicationParts(options =>
-               {
-                   //options.AddApplicationPart(typeof(IWMS).Assembly);
-                   options.AddApplicationPart(typeof(ICMS).Assembly);
-               })
-               .Configure<ClusterOptions>(options =>
-               {
-                   options.ClusterId = "Client_dev";
-                   options.ServiceId = "ClientCluster";
-               })
-               .ConfigureLogging(logging => logging.AddConsole())
-               .Build();
-            //延迟启动客户端
+            //启动集群链接
             Helper.DelayInvoke(6000, () =>{
-                Helper.client.Connect().Wait();
+                Helper.service.AddLogging();
+                Helper.service.AddOrleansMultiClient(build => {
+                    //silo 1
+                    build.AddClient(opt => {
+                        opt.ServiceId = "dev1";
+                        opt.ClusterId = "App";
+                        opt.SetServiceAssembly(typeof(IWMS).Assembly);
+                        opt.Configure = (o =>
+                        {
+                            o.UseLocalhostClustering(gatewayPort: 30001);
+                        });
+                    });
+                    //silo 2
+                    build.AddClient(opt => {
+                        opt.ServiceId = "dev2";
+                        opt.ClusterId = "App";
+                        opt.SetServiceAssembly(typeof(ICMS).Assembly);
+                        opt.Configure = (o =>
+                        {
+                            o.UseLocalhostClustering(gatewayPort: 30002);
+                        });
+                    });
+                });
+                Helper.provider = Helper.service.BuildServiceProvider();
             });
-            //组织客户端退出
+            //阻止客户端退出
             Console.ReadKey();
-
-
         }
     }
 }

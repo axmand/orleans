@@ -1,6 +1,8 @@
 ﻿using Client.HanYangYun.Util;
 using GrainInterface.CMS;
 using GrainInterface.WMS;
+using Microsoft.Extensions.DependencyInjection;
+using Orleans;
 using ServiceStack;
 using System;
 
@@ -12,8 +14,8 @@ namespace Client.HanYangYun.Services
         {
             try
             {
-                var cms = Helper.client.GetGrain<IWMS>(0);
-                var cms2 = Helper.client.GetGrain<ICMS>(0);
+                var wms = Helper.GetGrain<IWMS>(0);
+                var cms = Helper.GetGrain<ICMS>(0);
                 return true;
                 //return cms.Register(request.userName, request.pwd).Result;
             }

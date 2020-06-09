@@ -6,12 +6,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2EB1E4EA-50D1-4642-B7C0-FD0341B6DBE3}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Client.HY</RootNamespace>
-    <AssemblyName>Client.HY</AssemblyName>
+    <RootNamespace>Client.HanYangYun</RootNamespace>
+    <AssemblyName>Client.HanYangYun</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x64</PlatformTarget>
@@ -208,6 +209,10 @@
     <ProjectReference Include="..\GrainInterface.WMS\GrainInterface.WMS.csproj">
       <Project>{7803a325-75e6-49c8-918b-b3e50fae039d}</Project>
       <Name>GrainInterface.WMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orleans.MultiClient\Orleans.MultiClient.csproj">
+      <Project>{72a524b0-3025-48b0-9202-a286cb4c030c}</Project>
+      <Name>Orleans.MultiClient</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
