@@ -24,6 +24,15 @@ namespace Establishment.ESchema
         }
 
         /// <summary>
+        /// 对象校验
+        /// </summary>
+        /// <returns></returns>
+        public virtual bool Verify()
+        {
+            return true;
+        }
+
+        /// <summary>
         /// 设置类型属性
         /// </summary>
         /// <param name="propertyName">属性名称</param>

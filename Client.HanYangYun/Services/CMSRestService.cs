@@ -1,27 +1,28 @@
 ﻿using Client.HanYangYun.Util;
+using Establishment.EResponse;
 using GrainInterface.CMS;
-using GrainInterface.WMS;
-using Microsoft.Extensions.DependencyInjection;
-using Orleans;
 using ServiceStack;
 using System;
+using System.IO;
 
 namespace Client.HanYangYun.Services
 {
     public class CMSRestService: Service
     {
-        public bool Get(Routes.CustomerRegister request)
+        public string Post(Routes.Register request)
         {
             try
             {
-                var wms = Helper.GetGrain<IWMS>(0);
-                var cms = Helper.GetGrain<ICMS>(0);
-                return true;
-                //return cms.Register(request.userName, request.pwd).Result;
+                using(StreamReader sr = new StreamReader(request.RequestStream))
+                {
+                    ICMS cms = Helper.GetGrain<ICMS>(0);
+                    string response = cms.Register(sr.ReadToEnd()).Result;
+                    return response;
+                }
             }
-            catch (Exception ex)
+            catch
             {
-                return false;
+                return Helper.AbnormalError;
             }
         }
     }

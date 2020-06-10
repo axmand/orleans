@@ -49,6 +49,9 @@
     <Compile Include="EAlipay\AlipayMD5.cs" />
     <Compile Include="EAlipay\AlipayNotify.cs" />
     <Compile Include="EAlipay\AlipaySubmit.cs" />
+    <Compile Include="EResponse\BaseResponse.cs" />
+    <Compile Include="EResponse\FailResponse.cs" />
+    <Compile Include="EResponse\OkResponse.cs" />
     <Compile Include="ESchema\MongoSchema.cs" />
     <Compile Include="EWaybill\WaybillCore.cs" />
     <Compile Include="EWxpay\WxpayCore.cs" />

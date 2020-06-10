@@ -210,8 +210,12 @@
       <Project>{7803a325-75e6-49c8-918b-b3e50fae039d}</Project>
       <Name>GrainInterface.WMS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Orleans.MultiClient\Orleans.MultiClient.csproj">
-      <Project>{72a524b0-3025-48b0-9202-a286cb4c030c}</Project>
+    <ProjectReference Include="..\Meta\Establishment\Establishment.csproj">
+      <Project>{2df911bc-7c7c-463f-955f-d8b6257ad069}</Project>
+      <Name>Establishment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Meta\Orleans.MultiClient\Orleans.MultiClient.csproj">
+      <Project>{eb417467-b03b-4380-8417-c103aa665373}</Project>
       <Name>Orleans.MultiClient</Name>
     </ProjectReference>
   </ItemGroup>

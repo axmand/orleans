@@ -23,5 +23,13 @@ namespace Customer.Entity
         /// 第三方登录openId存留
         /// </summary>
         public string openId { get; set; }
+
+        public override bool Verify()
+        {
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userPwd))
+                return false;
+            return base.Verify();
+        }
+
     }
 }

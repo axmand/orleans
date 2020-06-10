@@ -182,13 +182,17 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Customer\Customer.csproj">
-      <Project>{90c277ed-7e3b-4667-8df1-9dd7a265aa41}</Project>
-      <Name>Customer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GrainInterface.CMS\GrainInterface.CMS.csproj">
       <Project>{9E07C962-2323-4FD4-98D0-70BAF2A11527}</Project>
       <Name>GrainInterface.CMS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Meta\Customer\Customer.csproj">
+      <Project>{90C277ED-7E3B-4667-8DF1-9DD7A265AA41}</Project>
+      <Name>Customer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Meta\Establishment\Establishment.csproj">
+      <Project>{2df911bc-7c7c-463f-955f-d8b6257ad069}</Project>
+      <Name>Establishment</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

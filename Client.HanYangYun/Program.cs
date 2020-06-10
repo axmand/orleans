@@ -39,6 +39,7 @@ namespace Client.HanYangYun
                     });
                 });
                 Helper.provider = Helper.service.BuildServiceProvider();
+                Console.WriteLine(string.Format("{0}: {1}", DateTime.Now.ToLongTimeString(),"clustion connection successful..."));
             });
             //阻止客户端退出
             Console.ReadKey();

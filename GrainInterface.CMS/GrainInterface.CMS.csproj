@@ -193,7 +193,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Customer\Customer.csproj">
+    <ProjectReference Include="..\Meta\Customer\Customer.csproj">
       <Project>{90C277ED-7E3B-4667-8DF1-9DD7A265AA41}</Project>
       <Name>Customer</Name>
     </ProjectReference>

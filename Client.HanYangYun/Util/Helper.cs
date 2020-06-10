@@ -1,6 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Establishment.EResponse;
+using Microsoft.Extensions.DependencyInjection;
 using Orleans;
-using ServiceStack;
 using System;
 
 namespace Client.HanYangYun.Util
@@ -48,5 +48,12 @@ namespace Client.HanYangYun.Util
             };
             timer.Enabled = true;
         }
+
+        #region 服务器应答
+
+        public static string AbnormalError = new FailResponse("服务异常").ToString();
+
+        #endregion
+
     }
 }

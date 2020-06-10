@@ -1,6 +1,8 @@
 ﻿using Customer.Entity;
+using Establishment.EResponse;
 using GrainImplement.CMS.Persistence;
 using GrainInterface.CMS;
+using Newtonsoft.Json;
 using Orleans.Runtime;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -37,14 +39,26 @@ namespace GrainImplement.CMS.Service
             return Task.FromResult(new List<Group>());
         }
 
-        Task<User> ICMS.Login(string userName, string pwd)
+        Task<User> ICMS.Login(string rawData)
         {
-            return Task.FromResult(new User());
+            throw new System.NotImplementedException();
         }
 
-        Task<bool> ICMS.Register(string userName, string pwd)
+        Task<string> ICMS.Register(string raw)
         {
-            return Task.FromResult(true);
+            User user = JsonConvert.DeserializeObject<User>(raw);
+            //1. 检查字段是否合理
+            if (!user.Verify()) return Task.FromResult(new FailResponse("用户名/密码不符合规则").ToString());
+            //2. 检查用户名是否已注册
+            _customerManager.ReadStateAsync();
+            User result = _customerManager.State.CustomerCollection.Find(p => string.Equals(p.userName, user.userName));
+            if (result != null)
+                return Task.FromResult(new FailResponse("用户已存在").ToString());
+            else
+                _customerManager.State.CustomerCollection.Add(user);
+            //3.同步多端
+            _customerManager.WriteStateAsync();
+            return Task.FromResult(new OkResponse("用户注册成功").ToString());
         }
 
         Task<bool> ICMS.SearchCustomerByName(string searchWord, string userName, string token)
