@@ -127,6 +127,7 @@ namespace Client.HanYangYun.Services
                 return Helper.AbnormalError;
             }
         }
+
         /// <summary>
         /// 
         /// </summary>
