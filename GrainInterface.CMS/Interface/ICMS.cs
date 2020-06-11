@@ -1,12 +1,25 @@
-﻿using Customer.Entity;
-using Orleans;
-using System.Collections.Generic;
+﻿using Orleans;
 using System.Threading.Tasks;
 
 namespace GrainInterface.CMS
 {
     public interface ICMS : IGrainWithIntegerKey
     {
+
+        /// <summary>
+        /// 系统初始化校验 
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> InitialCheck();
+
+        /// <summary>
+        /// 获取权限等级
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        Task<int> GetAccessLevel(string userName, string token);
+
         /// <summary>
         /// 创建group，有权限要求
         /// </summary>
@@ -16,7 +29,7 @@ namespace GrainInterface.CMS
         /// <param name="groupDesc"></param>
         /// <param name="groupLevel"></param>
         /// <returns></returns>
-        Task<bool> CreateGroup(string userName, string token, string groupName, string groupDesc, int groupLevel);
+        Task<string> CreateGroup(string userName, string token, string groupName, string groupDesc, int groupLevel);
 
         /// <summary>
         /// 删除group，有权限要求
@@ -25,7 +38,7 @@ namespace GrainInterface.CMS
         /// <param name="token"></param>
         /// <param name="groupObjectId"></param>
         /// <returns></returns>
-        Task<bool> DeleteGroup(string userName, string token, string groupObjectId);
+        Task<string> DeleteGroup(string userName, string token, string groupObjectId);
 
         /// <summary>
         /// 获取列表，有权限要求
@@ -33,7 +46,7 @@ namespace GrainInterface.CMS
         /// <param name="userName"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        Task<List<Group>> GetGroupList(string userName, string token);
+        Task<string> GetGroupList(string userName, string token);
 
         /// <summary>
         /// 注册用户
@@ -49,7 +62,7 @@ namespace GrainInterface.CMS
         /// <param name="userName"></param>
         /// <param name="pwd"></param>
         /// <returns></returns>
-        Task<User> Login(string rawData);
+        Task<string> Login(string rawData);
 
         /// <summary>
         /// 通过用户名搜索用户，有权限要求
@@ -58,7 +71,7 @@ namespace GrainInterface.CMS
         /// <param name="userName"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        Task<bool> SearchCustomerByName(string searchWord, string userName, string token);
+        Task<string> SearchCustomerByName(string searchWord, string userName, string token);
 
         /// <summary>
         /// 设置用户进不同用户组
@@ -68,6 +81,6 @@ namespace GrainInterface.CMS
         /// <param name="customerObjectId"></param>
         /// <param name="groupObjectId"></param>
         /// <returns></returns>
-        Task<bool> SetCustomerGroup(string userName, string token, string customerObjectId, string groupObjectId);
+        Task<string> SetCustomerGroup(string userName, string token, string customerObjectId, string groupObjectId);
     }
 }

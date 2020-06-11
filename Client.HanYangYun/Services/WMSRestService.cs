@@ -12,7 +12,7 @@ namespace Client.HanYangYun.Services
         /// </summary>
         /// <param name="request"></param>
         [AddHeader(ContentType = "image/png")]
-        public Stream Get(Routes.GoogleLayer request)
+        public Stream Get(Routes.WMSTMSLayer request)
         {
             try
             {

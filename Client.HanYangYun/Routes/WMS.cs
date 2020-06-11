@@ -2,8 +2,8 @@
 
 namespace Client.HanYangYun.Routes
 {
-    [Route("/layer/google/{z}/{x}/{y}", "GET")]
-    public class GoogleLayer
+    [Route("/wms/layer/tms/{z}/{x}/{y}", "GET")]
+    public class WMSTMSLayer
     {
         public int z { get; set; }
         public int x { get; set; }

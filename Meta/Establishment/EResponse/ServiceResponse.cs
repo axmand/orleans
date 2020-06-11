@@ -1,6 +1,6 @@
 ﻿namespace Establishment.EResponse
 {
-    public class BaseResponse
+    public class ServiceResponse
     {
         /// <summary>
         /// 错误码
@@ -15,7 +15,7 @@
         /// </summary>
         public string status { get; set; }
 
-        public BaseResponse(string _status, string _content, string _code = "-1")
+        public ServiceResponse(string _status, string _content, string _code = "-1")
         {
             content = _content;
             status = _status;
@@ -25,7 +25,7 @@
                 code = "400";
         }
 
-        public BaseResponse(string _status, object _content, string _code = "-1")
+        public ServiceResponse(string _status, object _content, string _code = "-1")
         {
             content = Newtonsoft.Json.JsonConvert.SerializeObject(_content);
             status = _status;

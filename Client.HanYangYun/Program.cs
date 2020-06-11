@@ -39,7 +39,10 @@ namespace Client.HanYangYun
                     });
                 });
                 Helper.provider = Helper.service.BuildServiceProvider();
-                Console.WriteLine(string.Format("{0}: {1}", DateTime.Now.ToLongTimeString(),"clustion connection successful..."));
+                Console.WriteLine(string.Format("{0}: {1}", DateTime.Now.ToLongTimeString(), "clustion connection successful..."));
+                //CMS系统初始化校验
+                bool check = Helper.GetGrain<ICMS>(0).InitialCheck().Result;
+                Console.WriteLine(string.Format("{0}: CMS module passed check : {1} !", DateTime.Now.ToLongTimeString(), check));
             });
             //阻止客户端退出
             Console.ReadKey();

@@ -20,6 +20,11 @@ namespace Customer.Entity
         public string token { get; set; }
 
         /// <summary>
+        /// 用户所在群组 id
+        /// </summary>
+        public string groupObjectId { get; set; }
+
+        /// <summary>
         /// 第三方登录openId存留
         /// </summary>
         public string openId { get; set; }

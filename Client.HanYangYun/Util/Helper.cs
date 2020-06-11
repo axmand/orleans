@@ -53,6 +53,8 @@ namespace Client.HanYangYun.Util
 
         public static string AbnormalError = new FailResponse("服务异常").ToString();
 
+
+
         #endregion
 
     }
