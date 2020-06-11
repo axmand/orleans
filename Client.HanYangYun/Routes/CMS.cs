@@ -6,13 +6,14 @@ namespace Client.HanYangYun.Routes
     /// <summary>
     /// 用户注册
     /// </summary>
+    [Api("用户注册（POST，传入的json对象包含两个属性字段：userName 和 userPwd")]
     [Route("/cms/register", "POST")]
     public class CMSRegister: IRequiresRequestStream
     {
         public System.IO.Stream RequestStream { get; set; }
     }
 
-    [Api("用户登录(POST），")]
+    [Api("用户登录（POST），传入的json对象包含两个属性字段：userName 和 userPwd")]
     [Route("/cms/login", "POST")]
     public class CMSLogin: IRequiresRequestStream
     {
@@ -27,6 +28,7 @@ namespace Client.HanYangYun.Routes
     {
         /// <summary>
         /// 用户名
+        /// 
         /// </summary>
         public string userName { get; set; }
 
