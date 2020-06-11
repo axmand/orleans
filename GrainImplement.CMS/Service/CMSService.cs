@@ -27,15 +27,32 @@ namespace GrainImplement.CMS.Service
             _groupManager = groupManager;
         }
 
+        #region 内置方法
+
+        /// <summary>
+        /// 获取用户权限等级，如果是-1表示无任何特殊权限
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public Task<int> GetAccessLevel(string userName, string token)
+        {
+            User result = _customerManager.State.CustomerCollection.Find(p => string.Equals(p.userName, userName) && string.Equals(p.token, token));
+            Group group = _groupManager.State.GropuCollection.Find(p => string.Equals(p.objectId, result?.groupObjectId));
+            return Task.FromResult(group != null ? group.level : Helper.LEVEL.NOPERMISSIONLEVEL);
+        }
+
+        #endregion
+
         /// <summary>
         /// 系统初始化校验
         /// </summary>
         /// <returns></returns>
-        Task<bool> ICMS.InitialCheck()
+        async Task<bool> ICMS.InitialCheck()
         {
             try
             {
-                _groupManager.ReadStateAsync();
+                await _groupManager.ReadStateAsync();
                 //内部初始化最高级管理组
                 if (!_groupManager.State.GropuCollection.Any())
                 {
@@ -48,9 +65,9 @@ namespace GrainImplement.CMS.Service
                         level = 99
                     }
                 };
-                    _groupManager.WriteStateAsync();
+                    await _groupManager.WriteStateAsync();
                 }
-                _customerManager.ReadStateAsync();
+                await _customerManager.ReadStateAsync();
                 //内部初始化最高级管理员
                 if (!_customerManager.State.CustomerCollection.Any())
                 {
@@ -63,13 +80,13 @@ namespace GrainImplement.CMS.Service
                         groupObjectId = _groupManager.State.GropuCollection.Find(p=>p.level == 99)?.objectId
                     }
                 };
-                    _customerManager.WriteStateAsync();
+                    await _customerManager.WriteStateAsync();
                 }
-                return Task.FromResult(true);
+                return true;
             }
             catch
             {
-                return Task.FromResult(false);
+                return false;
             }
         }
 
@@ -82,14 +99,15 @@ namespace GrainImplement.CMS.Service
         /// <param name="groupDesc"></param>
         /// <param name="groupLevel"></param>
         /// <returns></returns>
-        Task<string> ICMS.CreateGroup(string userName, string token, string groupName, string groupDesc, int groupLevel)
+        async Task<string> ICMS.CreateGroup(string userName, string token, string groupName, string groupDesc, int groupLevel)
         {
-            if(groupLevel>=Helper.LEVEL.CUSTOMLEVEL) return Task.FromResult(new FailResponse("无法创建高级权限群组").ToString());
-            _groupManager.ReadStateAsync();
+            if (groupLevel >= Helper.LEVEL.CUSTOMLEVEL) return new FailResponse("无法创建高级权限群组").ToString();
+            await _groupManager.ReadStateAsync();
             Group result = _groupManager.State.GropuCollection.Find(p => p.groupName == groupName);
-            if(result!=null) return Task.FromResult(new FailResponse("已存在同名用户组").ToString());
+            if (result != null) return new FailResponse("已存在同名用户组").ToString();
+            await _customerManager.ReadStateAsync();
             int level = GetAccessLevel(userName, token).Result;
-            if (level < Helper.LEVEL.ADMINLEVEL) return Task.FromResult(Helper.PermissionDeniedResponse);
+            if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
             Group group = new Group()
             {
                 groupName = groupName,
@@ -97,8 +115,8 @@ namespace GrainImplement.CMS.Service
                 level = groupLevel
             };
             _groupManager.State.GropuCollection.Add(group);
-            _groupManager.WriteStateAsync();
-            return Task.FromResult(new FailResponse("用户组创建成功").ToString());
+            await _groupManager.WriteStateAsync();
+            return new FailResponse("用户组创建成功").ToString();
         }
 
         /// <summary>
@@ -108,31 +126,18 @@ namespace GrainImplement.CMS.Service
         /// <param name="token"></param>
         /// <param name="groupObjectId"></param>
         /// <returns></returns>
-        Task<string> ICMS.DeleteGroup(string userName, string token, string groupObjectId)
+        async Task<string> ICMS.DeleteGroup(string userName, string token, string groupObjectId)
         {
+            await _customerManager.ReadStateAsync();
             int level = GetAccessLevel(userName, token).Result;
-            if (level < Helper.LEVEL.ADMINLEVEL) return Task.FromResult(Helper.PermissionDeniedResponse);
+            if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
             Group result = _groupManager.State.GropuCollection.Find(p => p.objectId == groupObjectId);
-            if(result == null)
-                return Task.FromResult(new FailResponse("未找到用户组").ToString());
+            if (result == null)
+                return new FailResponse("未找到用户组").ToString();
             else
                 _groupManager.State.GropuCollection.Remove(result);
-            _groupManager.WriteStateAsync();
-            return Task.FromResult(new OkResponse("删除用户组成功").ToString());
-        }
-
-        /// <summary>
-        /// 获取用户权限等级，如果是-1表示无任何特殊权限
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
-        public Task<int> GetAccessLevel(string userName, string token)
-        {
-            _customerManager.ReadStateAsync();
-            User result = _customerManager.State.CustomerCollection.Find(p => string.Equals(p.userName, userName) && string.Equals(p.token, token));
-            Group group = _groupManager.State.GropuCollection.Find(p => string.Equals(p.objectId, result?.groupObjectId));
-            return Task.FromResult(group == null ? group.level : Helper.LEVEL.NOPERMISSIONLEVEL);
+            await _groupManager.WriteStateAsync();
+            return new OkResponse("删除用户组成功").ToString();
         }
 
         /// <summary>
@@ -141,30 +146,32 @@ namespace GrainImplement.CMS.Service
         /// <param name="userName"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        Task<string> ICMS.GetGroupList(string userName, string token)
+        async Task<string> ICMS.GetGroupList(string userName, string token)
         {
+            await _customerManager.ReadStateAsync();
             int level = GetAccessLevel(userName, token).Result;
-            if (level < Helper.LEVEL.ADMINLEVEL) return Task.FromResult(Helper.PermissionDeniedResponse);
+            if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
             var group = from g in _groupManager.State.GropuCollection
-                          where g.level < Helper.LEVEL.ADMINLEVEL
-                          select new {
-                              g.objectId,
-                              g.level,
-                              g.groupName,
-                              g.description,
-                              g.date,
-                              g.time,
-                          };
-            return Task.FromResult(new OkResponse(group).ToString());
+                        where g.level < Helper.LEVEL.ADMINLEVEL
+                        select new
+                        {
+                            g.objectId,
+                            g.level,
+                            g.groupName,
+                            g.description,
+                            g.date,
+                            g.time,
+                        };
+            return new OkResponse(group).ToString();
         }
 
-        Task<string> ICMS.Login(string raw)
+        async Task<string> ICMS.Login(string raw)
         {
             User user = JsonConvert.DeserializeObject<User>(raw);
             //1. 检查字段是否合理
-            if (!user.Verify()) return Task.FromResult(new FailResponse("用户名/密码不符合规则").ToString());
+            if (!user.Verify()) return new FailResponse("用户名/密码不符合规则").ToString();
             //2. 检查、同步各分布式结点状态
-            _customerManager.ReadStateAsync();
+            await _customerManager.ReadStateAsync();
             User result = _customerManager.State.CustomerCollection.Find(p => string.Equals(p.userName, user.userName) && string.Equals(p.userPwd, user.userPwd));
             if (result != null)
             {
@@ -173,33 +180,33 @@ namespace GrainImplement.CMS.Service
                 //4. 查询所属group
                 Group group = _groupManager.State.GropuCollection.Find(p => string.Equals(p.objectId, result.groupObjectId));
                 //5. 同步结点状态
-                _customerManager.WriteStateAsync();
-                return Task.FromResult(new OkResponse(new
+                await _customerManager.WriteStateAsync();
+                return new OkResponse(new
                 {
                     result.userName,
                     result.token,
                     group?.groupName,
                     group?.level
-                }).ToString());
+                }).ToString();
             }
-            return Task.FromResult(new FailResponse("用户/密码错误").ToString());
+            return new FailResponse("用户/密码错误").ToString();
         }
 
-        Task<string> ICMS.Register(string raw)
+        async Task<string> ICMS.Register(string raw)
         {
             User user = JsonConvert.DeserializeObject<User>(raw);
             //1. 检查字段是否合理
-            if (!user.Verify()) return Task.FromResult(new FailResponse("用户名/密码不符合规则").ToString());
+            if (!user.Verify()) return new FailResponse("用户名/密码不符合规则").ToString();
             //2. 检查用户名是否已注册
-            _customerManager.ReadStateAsync();
+            await _customerManager.ReadStateAsync();
             User result = _customerManager.State.CustomerCollection.Find(p => string.Equals(p.userName, user.userName));
             if (result != null)
-                return Task.FromResult(new FailResponse("用户已存在").ToString());
+                return new FailResponse("用户已存在").ToString();
             else
                 _customerManager.State.CustomerCollection.Add(user);
             //3.同步多端
-            _customerManager.WriteStateAsync();
-            return Task.FromResult(new OkResponse("用户注册成功").ToString());
+            await _customerManager.WriteStateAsync();
+            return new OkResponse("用户注册成功").ToString();
         }
 
         /// <summary>
@@ -209,13 +216,14 @@ namespace GrainImplement.CMS.Service
         /// <param name="userName"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        Task<string> ICMS.SearchCustomerByName(string searchWord, string userName, string token)
+        async Task<string> ICMS.SearchCustomerByName(string searchWord, string userName, string token)
         {
-            if(string.IsNullOrEmpty(searchWord) || string.IsNullOrWhiteSpace(searchWord))
-                return Task.FromResult(new FailResponse("搜索关键词不合法").ToString());
+            if (string.IsNullOrEmpty(searchWord) || string.IsNullOrWhiteSpace(searchWord))
+                return new FailResponse("搜索关键词不合法").ToString();
+            await _customerManager.ReadStateAsync();
             //判断权限是否满足要求
             int level = GetAccessLevel(userName, token).Result;
-            if (level < Helper.LEVEL.ADMINLEVEL) return Task.FromResult(Helper.PermissionDeniedResponse);
+            if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
             var users = from u in _customerManager.State.CustomerCollection
                         where u.userName.Contains(searchWord.Trim())
                         select new
@@ -226,7 +234,7 @@ namespace GrainImplement.CMS.Service
                             u.date,
                             u.time
                         };
-            return Task.FromResult(new OkResponse(users).ToString());
+            return new OkResponse(users).ToString();
         }
 
         /// <summary>
@@ -237,20 +245,21 @@ namespace GrainImplement.CMS.Service
         /// <param name="customerObjectId"></param>
         /// <param name="groupObjectId"></param>
         /// <returns></returns>
-        Task<string> ICMS.SetCustomerGroup(string userName, string token, string customerObjectId, string groupObjectId)
+        async Task<string> ICMS.SetCustomerGroup(string userName, string token, string customerObjectId, string groupObjectId)
         {
-            if(string.IsNullOrEmpty(customerObjectId)||string.IsNullOrEmpty(groupObjectId))
-                return Task.FromResult(new FailResponse("用户组或者用户ID不合法").ToString());
+            if (string.IsNullOrEmpty(customerObjectId) || string.IsNullOrEmpty(groupObjectId))
+                return new FailResponse("用户组或者用户ID不合法").ToString();
             //判断权限是否满足要求
+            await _customerManager.ReadStateAsync();
             int level = GetAccessLevel(userName, token).Result;
-            if (level < Helper.LEVEL.ADMINLEVEL) return Task.FromResult(Helper.PermissionDeniedResponse);
-            _groupManager.ReadStateAsync();
+            if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
+            await _groupManager.ReadStateAsync();
             Group group = _groupManager.State.GropuCollection.Find(p => p.objectId.Equals(groupObjectId.Trim()));
-            if(group == null) return Task.FromResult(new FailResponse("用户组不存在").ToString());
+            if (group == null) return new FailResponse("用户组不存在").ToString();
             User user = _customerManager.State.CustomerCollection.Find(p => p.objectId.Equals(customerObjectId.Trim()));
             user.groupObjectId = groupObjectId;
-            _customerManager.WriteStateAsync();
-            return Task.FromResult(new OkResponse("设置用户的组信息成功").ToString());
+            await _customerManager.WriteStateAsync();
+            return new OkResponse("设置用户的组信息成功").ToString();
         }
     }
 }
