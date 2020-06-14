@@ -8,7 +8,9 @@ kiwi.orleans built on the basis of Mircosoft.Orleans and Mircosoft.CNTK to provi
 ### dependencies ###
 > [Orleans.Sagas](https://github.com/OrleansContrib/Orleans.Sagas) 
 
-> [Orleans.MultiClient](https://github.com/OrleansContrib/Orleans.MultiClient)
+> [Orleans.MultiClient](https://github.com/OrleansContrib/Orleans.MultiClient) 
+
+>[Orleans.Providers.MongoDB](https://github.com/OrleansContrib/Orleans.Providers.MongoDB)
 
 
 ### Add Orleans NuGet Pacakges ###
