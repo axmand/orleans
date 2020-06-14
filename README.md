@@ -5,6 +5,12 @@
 ### kiwi.orleans ###
 kiwi.orleans built on the basis of Mircosoft.Orleans and Mircosoft.CNTK to provides map services, deep learning, deep reinforcement learning and other acpabilities of distributed applications.
 
+### dependencies ###
+> [Orleans.Sagas](https://github.com/OrleansContrib/Orleans.Sagas) 
+
+> [Orleans.MultiClient](https://github.com/OrleansContrib/Orleans.MultiClient)
+
+
 ### Add Orleans NuGet Pacakges ###
 ```
 Project	Nuget Package
