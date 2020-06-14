@@ -13,7 +13,7 @@ kiwi.orleans built on the basis of Mircosoft.Orleans and Mircosoft.CNTK to provi
 >[Orleans.Providers.MongoDB](https://github.com/OrleansContrib/Orleans.Providers.MongoDB)
 
 
-### Add Orleans NuGet Pacakges ###
+### add orleans nuget pacakges ###
 ```
 Project	Nuget Package
 Silo	Microsoft.Orleans.Server
@@ -30,7 +30,7 @@ Grains	Microsoft.Orleans.Core.Abstractions
 Grains	Microsoft.Extensions.Logging.Abstractions
 ```
 
-### Configue MongoDB ###
+### configue mongodb ###
 ```
 mongod --dbpath <DB_PATH>
 ```
