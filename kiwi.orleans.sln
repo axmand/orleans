@@ -35,7 +35,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Establishment", "Meta\Estab
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orleans.MultiClient", "Meta\Orleans.MultiClient\Orleans.MultiClient.csproj", "{EB417467-B03B-4380-8417-C103AA665373}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.HanYangYun", "Client\Client.HanYangYun\Client.HanYangYun.csproj", "{2EB1E4EA-50D1-4642-B7C0-FD0341B6DBE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.HanYangYun", "Client.HanYangYun\Client.HanYangYun.csproj", "{2EB1E4EA-50D1-4642-B7C0-FD0341B6DBE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
