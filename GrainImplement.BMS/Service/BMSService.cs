@@ -3,9 +3,9 @@ using GrainInterface.BMS;
 
 namespace GrainImplement.BMS.Service
 {
-    public class BMSService : Orleans.Grain, IBMS
+    public class BMSService : Orleans.Grain, IHanYangCloudMapService
     {
-        Task<bool> IBMS.InitialCheck()
+        Task<bool> IHanYangCloudMapService.InitialCheck()
         {
             return Task.FromResult(true);
         }

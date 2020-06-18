@@ -42,7 +42,7 @@ namespace Client.HanYangYun
                     build.AddClient(opt => {
                         opt.ServiceId = "dev3";
                         opt.ClusterId = "App";
-                        opt.SetServiceAssembly(typeof(IBMS).Assembly);
+                        opt.SetServiceAssembly(typeof(IHanYangCloudMapService).Assembly);
                         opt.Configure = (o =>
                         {
                             o.UseLocalhostClustering(gatewayPort: 30003);
