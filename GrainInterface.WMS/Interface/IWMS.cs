@@ -7,6 +7,12 @@ namespace GrainInterface.WMS
     public interface IWMS : IGrainWithIntegerKey
     {
         /// <summary>
+        /// 系统初始化校验 
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> InitialCheck();
+
+        /// <summary>
         /// 通过TMS获取瓦片
         /// </summary>
         /// <param name="x"></param>

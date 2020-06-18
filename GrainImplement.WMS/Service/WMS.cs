@@ -39,6 +39,23 @@ namespace GrainImplement.WMS.Service
         }
 
         /// <summary>
+        /// 初始化检查
+        /// </summary>
+        /// <returns></returns>
+        async Task<bool> IWMS.InitialCheck()
+        {
+            try
+            {
+                await _tileCache.ReadStateAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 检查缓存
         /// </summary>
         /// <param name="forceUpdate"></param>
