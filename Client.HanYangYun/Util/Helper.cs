@@ -18,7 +18,7 @@ namespace Client.HanYangYun.Util
 
         public static T GetGrain<T>(int number) where T: Orleans.IGrainWithIntegerKey
         {
-            return Helper.provider.GetRequiredService<IOrleansClient>().GetGrain<T>(number);
+            return provider.GetRequiredService<IOrleansClient>().GetGrain<T>(number);
         }
 
         /// <summary>
