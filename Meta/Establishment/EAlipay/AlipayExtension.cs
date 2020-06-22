@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Establishment.EAlipay
+namespace Engine.Facility.EAlipay
 {
     /// <summary>
     /// 根据alipay需求，提供string序列化扩展方法

@@ -192,6 +192,7 @@
     <Compile Include="Routes\BMS.cs" />
     <Compile Include="Routes\CMS.cs" />
     <Compile Include="Routes\WMS.cs" />
+    <Compile Include="Services\BMSRestService.cs" />
     <Compile Include="Services\CMSRestService.cs" />
     <Compile Include="Services\WMSRestService.cs" />
     <Compile Include="Util\AppHost.cs" />
@@ -214,9 +215,9 @@
       <Project>{7803a325-75e6-49c8-918b-b3e50fae039d}</Project>
       <Name>GrainInterface.WMS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Meta\Establishment\Establishment.csproj">
+    <ProjectReference Include="..\Meta\Establishment\Engine.Facility.csproj">
       <Project>{2df911bc-7c7c-463f-955f-d8b6257ad069}</Project>
-      <Name>Establishment</Name>
+      <Name>Engine.Facility</Name>
     </ProjectReference>
     <ProjectReference Include="..\Meta\Orleans.MultiClient\Orleans.MultiClient.csproj">
       <Project>{eb417467-b03b-4380-8417-c103aa665373}</Project>

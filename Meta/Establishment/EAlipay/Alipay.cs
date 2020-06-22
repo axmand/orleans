@@ -1,7 +1,7 @@
 ﻿/// <summary>
 /// 定义支付宝支付字符串信息中可序列化对象类型
 /// </summary>
-namespace Establishment.EAlipay
+namespace Engine.Facility.EAlipay
 {
     /// <summary>
     /// 基础通知对象

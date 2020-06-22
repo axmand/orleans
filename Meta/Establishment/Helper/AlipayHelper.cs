@@ -1,9 +1,9 @@
-﻿using Establishment.EAlipay;
+﻿using Engine.Facility.EAlipay;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Establishment.Helper
+namespace Engine.Facility.Helper
 {
     /// <summary>
     /// 提供支付宝支付处理方法

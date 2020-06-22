@@ -1,4 +1,4 @@
-﻿namespace Establishment.EResponse
+﻿namespace Engine.Facility.EResponse
 {
     public class ServiceResponse
     {

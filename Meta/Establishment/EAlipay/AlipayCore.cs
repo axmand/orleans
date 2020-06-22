@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace Establishment.EAlipay
+namespace Engine.Facility.EAlipay
 {
     /// <summary>
     /// 类名：AlipayCore

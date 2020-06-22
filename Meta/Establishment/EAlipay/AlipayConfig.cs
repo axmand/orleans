@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Establishment.EAlipay
+namespace Engine.Facility.EAlipay
 {
     /// <summary>
     /// 类名：Config

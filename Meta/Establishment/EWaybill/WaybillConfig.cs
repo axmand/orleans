@@ -1,4 +1,4 @@
-﻿namespace Establishment.EWaybill
+﻿namespace Engine.Facility.EWaybill
 {
     /// <summary>
     /// 快递鸟-物流配置

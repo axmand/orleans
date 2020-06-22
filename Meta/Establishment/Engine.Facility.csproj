@@ -7,8 +7,8 @@
     <ProjectGuid>{2DF911BC-7C7C-463F-955F-D8B6257AD069}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Establishment</RootNamespace>
-    <AssemblyName>Establishment</AssemblyName>
+    <RootNamespace>Engine.Facility</RootNamespace>
+    <AssemblyName>Engine.Facility</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -49,6 +49,8 @@
     <Compile Include="EAlipay\AlipayMD5.cs" />
     <Compile Include="EAlipay\AlipayNotify.cs" />
     <Compile Include="EAlipay\AlipaySubmit.cs" />
+    <Compile Include="ECustomer\Group.cs" />
+    <Compile Include="ECustomer\Customer.cs" />
     <Compile Include="EResponse\ServiceResponse.cs" />
     <Compile Include="EResponse\FailResponse.cs" />
     <Compile Include="EResponse\OkResponse.cs" />

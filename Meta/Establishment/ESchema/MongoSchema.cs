@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Establishment.ESchema
+namespace Engine.Facility.ESchema
 {
     /// <summary>
     /// mongodb 基础数据类型

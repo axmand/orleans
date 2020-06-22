@@ -18,7 +18,7 @@ namespace Client.HanYangYun.Services
             {
                 using (StreamReader sr = new StreamReader(request.RequestStream))
                 {
-                    ICMS cms = Helper.GetGrain<ICMS>(0);
+                    ICustomer cms = Helper.GetGrain<ICustomer>(0);
                     string response = cms.Register(sr.ReadToEnd()).Result;
                     return response;
                 }
@@ -40,7 +40,7 @@ namespace Client.HanYangYun.Services
             {
                 using (StreamReader sr = new StreamReader(request.RequestStream))
                 {
-                    ICMS cms = Helper.GetGrain<ICMS>(0);
+                    ICustomer cms = Helper.GetGrain<ICustomer>(0);
                     string response = cms.Login(sr.ReadToEnd()).Result;
                     return response;
                 }
@@ -60,7 +60,7 @@ namespace Client.HanYangYun.Services
         {
             try
             {
-                ICMS cms = Helper.GetGrain<ICMS>(0);
+                IGroup cms = Helper.GetGrain<IGroup>(0);
                 string response = cms.CreateGroup(request.userName, request.token, request.groupName, request.groupDesc, request.groupLevel).Result;
                 return response;
             }
@@ -79,7 +79,7 @@ namespace Client.HanYangYun.Services
         {
             try
             {
-                ICMS cms = Helper.GetGrain<ICMS>(0);
+                ICustomer cms = Helper.GetGrain<ICustomer>(0);
                 string response = cms.SearchCustomerByName(request.searchword, request.userName, request.token).Result;
                 return response;
             }
@@ -99,7 +99,7 @@ namespace Client.HanYangYun.Services
         {
             try
             {
-                ICMS cms = Helper.GetGrain<ICMS>(0);
+                IGroup cms = Helper.GetGrain<IGroup>(0);
                 string response = cms.SetCustomerGroup(request.userName, request.token, request.customerObjectId, request.groupObjectId).Result;
                 return response;
             }
@@ -118,7 +118,7 @@ namespace Client.HanYangYun.Services
         {
             try
             {
-                ICMS cms = Helper.GetGrain<ICMS>(0);
+                IGroup cms = Helper.GetGrain<IGroup>(0);
                 string response = cms.GetGroupList(request.userName, request.token).Result;
                 return response;
             }
@@ -137,7 +137,7 @@ namespace Client.HanYangYun.Services
         {
             try
             {
-                ICMS cms = Helper.GetGrain<ICMS>(0);
+                IGroup cms = Helper.GetGrain<IGroup>(0);
                 string response = cms.DeleteGroup(request.userName, request.token, request.groupObjectId).Result;
                 return response;
             }

@@ -1,9 +1,9 @@
-﻿using Establishment.EAlimail;
+﻿using Engine.Facility.EAlimail;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Establishment.Helper
+namespace Engine.Facility.Helper
 {
     /// <summary>
     /// 阿里云企业邮箱

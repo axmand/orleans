@@ -1,9 +1,9 @@
-﻿using Establishment.EWaybill;
+﻿using Engine.Facility.EWaybill;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
 
-namespace Establishment.Helper
+namespace Engine.Facility.Helper
 {
     /// <summary>
     /// 提供物流查询相关方法

@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Xml;
 
-namespace Establishment.Phone
+namespace Engine.Facility.Phone
 {
     /// <summary>
     /// 请求数据格式枚举

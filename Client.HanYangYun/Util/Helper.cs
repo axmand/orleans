@@ -1,4 +1,4 @@
-﻿using Establishment.EResponse;
+﻿using Engine.Facility.EResponse;
 using Microsoft.Extensions.DependencyInjection;
 using Orleans;
 using System;
@@ -53,7 +53,7 @@ namespace Client.HanYangYun.Util
 
         public static string AbnormalError = new FailResponse("服务异常").ToString();
 
-
+        public static string DataError = new FailResponse("数据错误").ToString();
 
         #endregion
 

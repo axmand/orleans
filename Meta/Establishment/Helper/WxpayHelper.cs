@@ -1,9 +1,9 @@
-﻿using Establishment.EWxpay;
+﻿using Engine.Facility.EWxpay;
 using System;
 using System.Collections.Generic;
 using System.Xml;
 
-namespace Establishment.Helper
+namespace Engine.Facility.Helper
 {
     /// <summary>
     /// 微信支付功能集合

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Establishment.Phone
+namespace Engine.Facility.Phone
 {
     /// <summary>
     /// 短信服务配置

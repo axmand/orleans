@@ -1,6 +1,6 @@
-﻿using Establishment.ESchema;
+﻿using Engine.Facility.ESchema;
 
-namespace Customer.Entity
+namespace Engine.Facility.ECustomer
 {
     public class Group : MongoSchema
     {

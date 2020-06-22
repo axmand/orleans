@@ -1,4 +1,4 @@
-﻿using Customer.Entity;
+﻿using Engine.Facility.ECustomer;
 using System.Collections.Generic;
 
 namespace GrainImplement.CMS.Persistence

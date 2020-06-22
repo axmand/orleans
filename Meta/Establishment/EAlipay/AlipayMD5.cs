@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Establishment.EAlipay
+namespace Engine.Facility.EAlipay
 {
     /// <summary>
     /// 功能：MD5加密

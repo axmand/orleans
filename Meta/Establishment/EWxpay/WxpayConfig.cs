@@ -1,4 +1,4 @@
-﻿namespace Establishment.EWxpay
+﻿namespace Engine.Facility.EWxpay
 {
     /// <summary>
     /// 微信支付配置

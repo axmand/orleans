@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Web;
 
-namespace Establishment.EWaybill
+namespace Engine.Facility.EWaybill
 {
     public class WaybillCore
     {

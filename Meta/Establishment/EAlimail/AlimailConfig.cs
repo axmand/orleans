@@ -1,4 +1,4 @@
-﻿namespace Establishment.EAlimail
+﻿namespace Engine.Facility.EAlimail
 {
     /// <summary>
     /// 阿里云企业邮箱配置

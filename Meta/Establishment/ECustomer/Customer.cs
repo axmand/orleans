@@ -1,8 +1,8 @@
-﻿using Establishment.ESchema;
+﻿using Engine.Facility.ESchema;
 
-namespace Customer.Entity
+namespace Engine.Facility.ECustomer
 {
-    public class User : MongoSchema
+    public class Customer : MongoSchema
     {
         /// <summary>
         /// 登录用户名

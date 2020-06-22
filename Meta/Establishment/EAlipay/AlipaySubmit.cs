@@ -2,7 +2,7 @@
 using System.Text;
 using System.Xml;
 
-namespace Establishment.EAlipay
+namespace Engine.Facility.EAlipay
 {
     /// <summary>
     /// 类名：AlipaySubmit

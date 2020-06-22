@@ -169,18 +169,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\ICMS.cs" />
+    <Compile Include="Tag\NeedPermission.cs" />
+    <Compile Include="Interface\ICustomer.cs" />
+    <Compile Include="Interface\IGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Meta\Customer\Customer.csproj">
-      <Project>{90C277ED-7E3B-4667-8DF1-9DD7A265AA41}</Project>
-      <Name>Customer</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Orleans.CodeGenerator.MSBuild.3.2.0\build\Microsoft.Orleans.CodeGenerator.MSBuild.targets" Condition="Exists('..\packages\Microsoft.Orleans.CodeGenerator.MSBuild.3.2.0\build\Microsoft.Orleans.CodeGenerator.MSBuild.targets')" />

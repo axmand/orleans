@@ -32,7 +32,7 @@ namespace Client.HanYangYun
                     build.AddClient(opt => {
                         opt.ServiceId = "dev2";
                         opt.ClusterId = "App";
-                        opt.SetServiceAssembly(typeof(ICMS).Assembly);
+                        opt.SetServiceAssembly(typeof(ICustomer).Assembly);
                         opt.Configure = (o =>
                         {
                             o.UseLocalhostClustering(gatewayPort: 30002);
@@ -42,7 +42,7 @@ namespace Client.HanYangYun
                     build.AddClient(opt => {
                         opt.ServiceId = "dev3";
                         opt.ClusterId = "App";
-                        opt.SetServiceAssembly(typeof(IHanYangCloudMapService).Assembly);
+                        opt.SetServiceAssembly(typeof(IBMSHY).Assembly);
                         opt.Configure = (o =>
                         {
                             o.UseLocalhostClustering(gatewayPort: 30003);
@@ -52,7 +52,7 @@ namespace Client.HanYangYun
                 Helper.provider = Helper.service.BuildServiceProvider();
                 Console.WriteLine(string.Format("{0}: {1}", DateTime.Now.ToLongTimeString(), "clustion connection successful..."));
                 //CMS系统初始化校验
-                bool cms_check = Helper.GetGrain<ICMS>(0).InitialCheck().Result;
+                bool cms_check = Helper.GetGrain<ICustomer>(0).InitialCheck().Result;
                 Console.WriteLine(string.Format("{0}: CMS module passed check : {1} !", DateTime.Now.ToLongTimeString(), cms_check));
                 //WMS系统初始化校验
                 bool wms_check = Helper.GetGrain<IWMS>(0).InitialCheck().Result;

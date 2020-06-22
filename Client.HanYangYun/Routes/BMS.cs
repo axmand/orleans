@@ -24,21 +24,11 @@ namespace Client.HanYangYun.Routes
     }
 
     /// <summary>
-    /// 楼宇详情
-    /// Building Management Service
+    /// 
     /// </summary>
-    [Route("/bms/{name}", "GET")]
-    public class BMSProvider
-    {
-        public string name { get; set; }
-    }
-
-    /// <summary>
-    /// 地块管理
-    /// Land Management Service
-    /// </summary>
-    [Route("/lms/{name}", "GET")]
-    public class LMSProvider
+    [Api("提供楼宇和土地信息的geo格式数据，输入字段name,值为 'TDXX' 或者 'LYXX' ")]
+    [Route("/bms/geoprovider/{name}", "GET")]
+    public class BMSGeoProvider
     {
         public string name { get; set; }
     }

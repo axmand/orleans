@@ -21,7 +21,7 @@ namespace Silo.BMS
           .UseLocalhostClustering(siloPort: 11114, gatewayPort: 30003)
           //配置数据库持久化
           .UseMongoDBClient(connectionString)
-          .AddMongoDBGrainStorage("PlotCache", options =>
+          .AddMongoDBGrainStorage("TDXXCache", options =>
           {
               //在MongoDB中构建的数据库名字
               options.DatabaseName = "BMS";
@@ -33,7 +33,7 @@ namespace Silo.BMS
                   settings.DefaultValueHandling = DefaultValueHandling.Populate;
               };
           })
-          .AddMongoDBGrainStorage("BuildingCache", options =>
+          .AddMongoDBGrainStorage("LYXXCache", options =>
           {
               options.DatabaseName = "BMS";
               options.CreateShardKeyForCosmos = false;
