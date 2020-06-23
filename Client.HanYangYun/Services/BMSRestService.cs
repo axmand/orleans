@@ -44,9 +44,9 @@ namespace Client.HanYangYun.Services
                 switch (request.name)
                 {
                     case "TDXX":
-                        return bms.AccessToLandInformation().Result;
+                        return bms.AccessTDXXGeoData().Result;
                     case "LYXX":
-                        return bms.AccessToBuildingInformation().Result;
+                        return bms.AccessLYXXGeoData().Result;
                     default:
                         return Helper.DataError;
                 }
@@ -69,7 +69,7 @@ namespace Client.HanYangYun.Services
                 using (StreamReader sr = new StreamReader(request.RequestStream))
                 {
                     IBMSHY bms = Helper.GetGrain<IBMSHY>(0);
-                    string response = bms.LYXXGeoDataUpdate(sr.ReadToEnd()).Result;
+                    string response = bms.GeoDataLYXXUpdate(sr.ReadToEnd()).Result;
                     return response;
                 }
             }
@@ -95,7 +95,7 @@ namespace Client.HanYangYun.Services
                     if(cms.CheckAPIPermession(userName, token, request.GetType()).Result)
                     {
                         IBMSHY hybms = Helper.GetGrain<IBMSHY>(0);
-                        string response = hybms.TDXXGeoDataUpdate(sr.ReadToEnd()).Result;
+                        string response = hybms.GeoDataTDXXUpdate(sr.ReadToEnd()).Result;
                         return response;
                     }
                     return Helper.PermessionError;

@@ -18,26 +18,26 @@ namespace GrainInterface.BMS
         /// 土地信息
         /// </summary>
         /// <returns></returns>
-        Task<string> AccessToLandInformation();
+        Task<string> AccessTDXXGeoData();
 
         /// <summary>
         /// 楼宇信息
         /// </summary>
         /// <returns></returns>
-        Task<string> AccessToBuildingInformation();
+        Task<string> AccessLYXXGeoData();
 
         /// <summary>
         /// 修改土地信息
         /// </summary>
         /// <param name="geoJsonText"></param>
         /// <returns></returns>
-        Task<string> TDXXGeoDataUpdate(string geoJsonText);
+        Task<string> GeoDataTDXXUpdate(string geoJsonText);
 
         /// <summary>
         /// 修改楼宇信息
         /// </summary>
         /// <param name="geoJsonText"></param>
         /// <returns></returns>
-        Task<string> LYXXGeoDataUpdate(string geoJsonText);
+        Task<string> GeoDataLYXXUpdate(string geoJsonText);
     }
 }
