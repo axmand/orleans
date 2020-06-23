@@ -1,6 +1,6 @@
 ﻿using Engine.Facility.ESchema;
 
-namespace Engine.Facility.ECustomer
+namespace Engine.Facility.ECMS
 {
     public class Customer : MongoSchema
     {

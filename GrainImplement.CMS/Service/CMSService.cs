@@ -1,4 +1,4 @@
-﻿using Engine.Facility.ECustomer;
+﻿using Engine.Facility.ECMS;
 using Engine.Facility.EResponse;
 using GrainImplement.CMS.Persistence;
 using GrainImplement.CMS.Util;
@@ -8,6 +8,7 @@ using Orleans.Runtime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace GrainImplement.CMS.Service

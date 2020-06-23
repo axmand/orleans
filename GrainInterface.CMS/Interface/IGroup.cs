@@ -8,7 +8,6 @@ namespace GrainInterface.CMS
     /// </summary>
     public interface IGroup: IGrainWithIntegerKey
     {
-
         /// <summary>
         /// 获取权限等级
         /// </summary>

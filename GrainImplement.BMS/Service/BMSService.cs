@@ -64,7 +64,7 @@ namespace GrainImplement.BMS.Service
         /// </summary>
         /// <param name="geoJsonText"></param>
         /// <returns></returns>
-        async Task<string> IBMSHY.ModifyLandInformation(string geoJsonText)
+        async Task<string> IBMSHY.TDXXGeoDataUpdate(string geoJsonText)
         {
             NetTopologySuite.IO.GeoJsonReader reader = new NetTopologySuite.IO.GeoJsonReader();
             FeatureCollection result = reader.Read<FeatureCollection>(geoJsonText);
@@ -77,7 +77,7 @@ namespace GrainImplement.BMS.Service
             throw new System.NotImplementedException();
         }
 
-        public Task<string> ModifyBuildingInformation(string geoJsonText)
+        public Task<string> LYXXGeoDataUpdate(string geoJsonText)
         {
             throw new System.NotImplementedException();
         }

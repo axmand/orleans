@@ -49,8 +49,9 @@
     <Compile Include="EAlipay\AlipayMD5.cs" />
     <Compile Include="EAlipay\AlipayNotify.cs" />
     <Compile Include="EAlipay\AlipaySubmit.cs" />
-    <Compile Include="ECustomer\Group.cs" />
-    <Compile Include="ECustomer\Customer.cs" />
+    <Compile Include="ECMS\CMSAttribute.cs" />
+    <Compile Include="ECMS\Group.cs" />
+    <Compile Include="ECMS\Customer.cs" />
     <Compile Include="EResponse\ServiceResponse.cs" />
     <Compile Include="EResponse\FailResponse.cs" />
     <Compile Include="EResponse\OkResponse.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="EAlipay\Alipay.cs" />
     <Compile Include="EAlipay\AlipayConfig.cs" />
     <Compile Include="EAlipay\AlipayExtension.cs" />
+    <Compile Include="Helper\CMSHelper.cs" />
     <Compile Include="Helper\PhoneHelper.cs" />
     <Compile Include="EPhone\CCPRestSDK.cs" />
     <Compile Include="EPhone\PhoneConfig.cs" />

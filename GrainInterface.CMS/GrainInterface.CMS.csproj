@@ -169,7 +169,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tag\NeedPermission.cs" />
     <Compile Include="Interface\ICustomer.cs" />
     <Compile Include="Interface\IGroup.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

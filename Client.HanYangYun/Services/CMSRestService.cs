@@ -1,6 +1,7 @@
 ﻿using Client.HanYangYun.Util;
 using GrainInterface.CMS;
 using ServiceStack;
+using System;
 using System.IO;
 
 namespace Client.HanYangYun.Services
@@ -80,7 +81,7 @@ namespace Client.HanYangYun.Services
             try
             {
                 ICustomer cms = Helper.GetGrain<ICustomer>(0);
-                string response = cms.SearchCustomerByName(request.searchword, request.userName, request.token).Result;
+                string response = cms.SearchCustomerByName(request.searchWord, request.userName, request.token).Result;
                 return response;
             }
             catch
@@ -88,7 +89,6 @@ namespace Client.HanYangYun.Services
                 return Helper.AbnormalError;
             }
         }
-
 
         /// <summary>
         /// 
@@ -140,6 +140,24 @@ namespace Client.HanYangYun.Services
                 IGroup cms = Helper.GetGrain<IGroup>(0);
                 string response = cms.DeleteGroup(request.userName, request.token, request.groupObjectId).Result;
                 return response;
+            }
+            catch
+            {
+                return Helper.AbnormalError;
+            }
+        }
+
+        /// <summary>
+        /// 获取CMS支持的可配置接口列表
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string Get(Routes.CMSGetConfigureableAPIList request)
+        {
+            try
+            {
+                Type[] response = Engine.Facility.Helper.CMSHelper.GetConfigurableAPIList().Result;
+                return new Engine.Facility.EResponse.OkResponse(response).ToString();
             }
             catch
             {

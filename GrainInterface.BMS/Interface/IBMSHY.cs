@@ -31,13 +31,13 @@ namespace GrainInterface.BMS
         /// </summary>
         /// <param name="geoJsonText"></param>
         /// <returns></returns>
-        Task<string> ModifyLandInformation(string geoJsonText);
+        Task<string> TDXXGeoDataUpdate(string geoJsonText);
 
         /// <summary>
         /// 修改楼宇信息
         /// </summary>
         /// <param name="geoJsonText"></param>
         /// <returns></returns>
-        Task<string> ModifyBuildingInformation(string geoJsonText);
+        Task<string> LYXXGeoDataUpdate(string geoJsonText);
     }
 }

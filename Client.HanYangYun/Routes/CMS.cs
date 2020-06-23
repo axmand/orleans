@@ -23,6 +23,7 @@ namespace Client.HanYangYun.Routes
     /// <summary>
     /// 创建用户组
     /// </summary>
+    [Api("创建用户组")]
     [Route("/cms/creategroup/{userName}/{token}/{groupName}/{groupDesc}/{groupLevel}", "GET")]
     public class CMSCreateGroup
     {
@@ -53,6 +54,7 @@ namespace Client.HanYangYun.Routes
         public int groupLevel { get; set; }
     }
 
+    [Api("删除用户组")]
     [Route("/cms/deletegroup/{userName}/{token}/{groupObjectId}", "GET")]
     public class CMSDeleteGroup
     {
@@ -63,6 +65,7 @@ namespace Client.HanYangYun.Routes
         public string groupObjectId { get; set; }
     }
 
+    [Api("获取用户组列表")]
     [Route("/cms/getgrouplist/{userName}/{token}", "GET")]
     public class CMSGetGroupList
     {
@@ -71,16 +74,18 @@ namespace Client.HanYangYun.Routes
         public string token { get; set; }
     }
 
-    [Route("/cms/searchcustomerbyname/{userName}/{token}/{searchword}", "GET")]
+    [Api("设置用户分组")]
+    [Route("/cms/searchcustomerbyname/{userName}/{token}/{searchWord}", "GET")]
     public class CMSSearchCustomerByName
     {
         public string userName { get; set; }
 
         public string token { get; set; }
 
-        public string searchword { get; set; }
+        public string searchWord { get; set; }
     }
 
+    [Api("设置用户分组")]
     [Route("/cms/setcustomergroup/{userName}/{token}/{customerObjectId}/{groupObjectId}", "GET")]
     public class CMSSetCustomerGroup
     {
@@ -91,6 +96,12 @@ namespace Client.HanYangYun.Routes
         public string customerObjectId { get; set; }
 
         public string groupObjectId { get; set; }
+    }
+
+    [Api("获取CMS可配置支持的接口列表，用于赋权限")]
+    [Route("/cms/getconfigureableapilist", "GET")]
+    public class CMSGetConfigureableAPIList
+    {
     }
 
 }
