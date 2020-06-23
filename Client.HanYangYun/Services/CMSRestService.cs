@@ -1,6 +1,7 @@
 ﻿using Client.HanYangYun.Util;
+using Engine.Facility.Helper;
 using GrainInterface.CMS;
-using ServiceStack;
+using ServiceStack.ServiceInterface;
 using System;
 using System.IO;
 
@@ -152,12 +153,12 @@ namespace Client.HanYangYun.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public string Get(Routes.CMSGetConfigureableAPIList request)
+        public string Get(Routes.CMSConfigureableAPIList request)
         {
             try
             {
-                Type[] response = Engine.Facility.Helper.CMSHelper.GetConfigurableAPIList().Result;
-                return new Engine.Facility.EResponse.OkResponse(response).ToString();
+                var dist = Engine.Facility.Helper.CMSHelper.GetConfigurableAPIList().Result;
+                return new Engine.Facility.EResponse.OkResponse(dist).ToString();
             }
             catch
             {
@@ -165,5 +166,42 @@ namespace Client.HanYangYun.Services
             }
         }
 
+        /// <summary>
+        /// 授权组API使用权
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string Get(Routes.CMSAPIAuthorize request)
+        {
+            try
+            {
+                IGroup gcms = Helper.GetGrain<IGroup>(0);
+                string response = gcms.AuthorizeAPI(request.userName, request.token, request.groupObjectId, request.APIFullname).Result;
+                return response;
+            }
+            catch
+            {
+                return Helper.AbnormalError;
+            }
+        }
+
+        /// <summary>
+        /// 解除组API使用权
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public string Get(Routes.CMSAPIWithdraw request)
+        {
+            try
+            {
+                IGroup gcms = Helper.GetGrain<IGroup>(0);
+                string response = gcms.WithdrawAPI(request.userName, request.token, request.groupObjectId, request.APIFullname).Result;
+                return response;
+            }
+            catch
+            {
+                return Helper.AbnormalError;
+            }
+        }
     }
 }

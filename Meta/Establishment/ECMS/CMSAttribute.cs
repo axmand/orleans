@@ -14,11 +14,11 @@ namespace Engine.Facility.ECMS
         /// 默认可配置，不需要权限可访问
         /// </summary>
         /// <param name="configurable">默认可配置</param>
-        /// <param name="permissionRequire">默认不需要权限可访问</param>
-        public CMSAttribute(bool configurable = true, bool permissionRequire = false)
+        /// <param name="desc">默认不需要权限可访问</param>
+        public CMSAttribute(bool configurable = true, string desc = "")
         {
             Configurable = configurable;
-            PermissionRequire = permissionRequire;
+            Description = desc;
         }
 
         /// <summary>
@@ -30,6 +30,6 @@ namespace Engine.Facility.ECMS
         /// <summary>
         /// 是否需要权限配置才可调用
         /// </summary>
-        public bool PermissionRequire { get; private set; }
+        public string Description { get; private set; }
     }
 }

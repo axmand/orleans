@@ -1,5 +1,6 @@
 ﻿using Funq;
 using ServiceStack;
+using ServiceStack.WebHost.Endpoints;
 
 namespace Client.HanYangYun.Util
 {
@@ -21,13 +22,12 @@ namespace Client.HanYangYun.Util
         {
             //跨域
             //this.Plugins.Add(new CorsFeature());
-            base.SetConfig(new HostConfig()
+            base.SetConfig(new EndpointHostConfig()
             {
                 //DebugMode = true,
                 AllowJsonpRequests = true,
                 //EnableFeatures = Feature.All.Remove(Feature.Html),
                 AllowAclUrlReservation = true,
-                DefaultContentType = MimeTypes.Json,
                 EnableAccessRestrictions = true,
                 GlobalResponseHeaders =
                 {

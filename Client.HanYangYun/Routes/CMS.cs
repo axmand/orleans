@@ -1,5 +1,4 @@
-﻿using ServiceStack;
-using ServiceStack.Web;
+﻿using ServiceStack.ServiceHost;
 
 namespace Client.HanYangYun.Routes
 {
@@ -100,8 +99,34 @@ namespace Client.HanYangYun.Routes
 
     [Api("获取CMS可配置支持的接口列表，用于赋权限")]
     [Route("/cms/getconfigureableapilist", "GET")]
-    public class CMSGetConfigureableAPIList
+    public class CMSConfigureableAPIList
     {
+    }
+
+    [Api("授权用户组API访问权限")]
+    [Route("/cms/authorizegroupapi/{userName}/{token}/{groupObjectId}/{APIFullname}", "GET")]
+    public class CMSAPIAuthorize
+    {
+        public string userName { get; set; }
+
+        public string token { get; set; }
+
+        public string groupObjectId { get; set; }
+
+        public string APIFullname { get; set; }
+    }
+
+    [Api("解除用户组API访问权限")]
+    [Route("/cms/withdrawgroupapi/{userName}/{token}/{groupObjectId}/{APIFullname}", "GET")]
+    public class CMSAPIWithdraw
+    {
+        public string userName { get; set; }
+
+        public string token { get; set; }
+
+        public string groupObjectId { get; set; }
+
+        public string APIFullname { get; set; }
     }
 
 }

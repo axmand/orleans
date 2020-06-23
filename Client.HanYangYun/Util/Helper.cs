@@ -53,6 +53,8 @@ namespace Client.HanYangYun.Util
 
         public static string AbnormalError = new FailResponse("服务异常").ToString();
 
+        public static string PermessionError = new FailResponse("接口需要配置权限").ToString();
+
         public static string DataError = new FailResponse("数据错误").ToString();
 
         #endregion

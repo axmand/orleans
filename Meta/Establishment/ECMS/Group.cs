@@ -1,4 +1,5 @@
 ﻿using Engine.Facility.ESchema;
+using System.Collections.Generic;
 
 namespace Engine.Facility.ECMS
 {
@@ -18,5 +19,10 @@ namespace Engine.Facility.ECMS
         /// 用户组名称
         /// </summary>
         public string groupName { get; set; }
+
+        /// <summary>
+        /// 允许使用的API列表
+        /// </summary>
+        public List<string> apiList { get; set; }
     }
 }

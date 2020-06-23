@@ -1,5 +1,6 @@
 ﻿using Engine.Facility.ECMS;
 using Engine.Facility.EResponse;
+using Engine.Facility.Helper;
 using GrainImplement.CMS.Persistence;
 using GrainImplement.CMS.Util;
 using GrainInterface.CMS;
@@ -48,7 +49,8 @@ namespace GrainImplement.CMS.Service
                     {
                         groupName = "系统管理员",
                         description = "系统自动初始化新建的管理员，具有最高权限",
-                        level = 99
+                        level = 99,
+                        apiList = new List<string>()
                     }
                 };
                     await _groupManager.WriteStateAsync();
@@ -81,21 +83,38 @@ namespace GrainImplement.CMS.Service
         #region 用户管理
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public Task<Group> GetGroup(string userName, string token)
+        {
+            Customer result = _customerManager.State.CustomerCollection.Find(p => string.Equals(p.userName, userName) && string.Equals(p.token, token));
+            Group group = _groupManager.State.GropuCollection.Find(p => string.Equals(p.objectId, result?.groupObjectId));
+            return Task.FromResult(group);
+        }
+
+        /// <summary>
         /// 获取用户权限等级，如果是-1表示无任何特殊权限
         /// </summary>
         /// <param name="userName"></param>
         /// <param name="token"></param>
         /// <returns></returns>
-        public Task<int> GetAccessLevel(string userName, string token)
+        public Task<int> GetGroupLevel(string userName, string token)
         {
-            Customer result = _customerManager.State.CustomerCollection.Find(p => string.Equals(p.userName, userName) && string.Equals(p.token, token));
-            Group group = _groupManager.State.GropuCollection.Find(p => string.Equals(p.objectId, result?.groupObjectId));
-            return Task.FromResult(group != null ? group.level : Helper.LEVEL.NOPERMISSIONLEVEL);
+            Group g = GetGroup(userName, token).Result;
+            return Task.FromResult(g != null ? g.level : Helper.LEVEL.NOPERMISSIONLEVEL);
         }
 
-        async Task<string> ICustomer.Register(string raw)
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="rawText"></param>
+        /// <returns></returns>
+        async Task<string> ICustomer.Register(string rawText)
         {
-            Customer user = JsonConvert.DeserializeObject<Customer>(raw);
+            Customer user = JsonConvert.DeserializeObject<Customer>(rawText);
             //1. 检查字段是否合理
             if (!user.Verify()) return new FailResponse("用户名/密码不符合规则").ToString();
             //2. 检查用户名是否已注册
@@ -123,7 +142,7 @@ namespace GrainImplement.CMS.Service
                 return new FailResponse("搜索关键词不合法").ToString();
             await _customerManager.ReadStateAsync();
             //判断权限是否满足要求
-            int level = GetAccessLevel(userName, token).Result;
+            int level = GetGroupLevel(userName, token).Result;
             if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
             var users = from u in _customerManager.State.CustomerCollection
                         where u.userName.Contains(searchWord.Trim())
@@ -190,7 +209,7 @@ namespace GrainImplement.CMS.Service
             Group result = _groupManager.State.GropuCollection.Find(p => p.groupName == groupName);
             if (result != null) return new FailResponse("已存在同名用户组").ToString();
             await _customerManager.ReadStateAsync();
-            int level = GetAccessLevel(userName, token).Result;
+            int level = GetGroupLevel(userName, token).Result;
             if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
             Group group = new Group()
             {
@@ -213,7 +232,7 @@ namespace GrainImplement.CMS.Service
         async Task<string> IGroup.DeleteGroup(string userName, string token, string groupObjectId)
         {
             await _customerManager.ReadStateAsync();
-            int level = GetAccessLevel(userName, token).Result;
+            int level = GetGroupLevel(userName, token).Result;
             if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
             Group result = _groupManager.State.GropuCollection.Find(p => p.objectId == groupObjectId);
             if (result == null)
@@ -233,7 +252,7 @@ namespace GrainImplement.CMS.Service
         async Task<string> IGroup.GetGroupList(string userName, string token)
         {
             await _customerManager.ReadStateAsync();
-            int level = GetAccessLevel(userName, token).Result;
+            int level = GetGroupLevel(userName, token).Result;
             if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
             var group = from g in _groupManager.State.GropuCollection
                         where g.level < Helper.LEVEL.ADMINLEVEL
@@ -245,6 +264,7 @@ namespace GrainImplement.CMS.Service
                             g.description,
                             g.date,
                             g.time,
+                            g.apiList
                         };
             return new OkResponse(group).ToString();
         }
@@ -263,7 +283,7 @@ namespace GrainImplement.CMS.Service
                 return new FailResponse("用户组或者用户ID不合法").ToString();
             //判断权限是否满足要求
             await _customerManager.ReadStateAsync();
-            int level = GetAccessLevel(userName, token).Result;
+            int level = GetGroupLevel(userName, token).Result;
             if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
             await _groupManager.ReadStateAsync();
             Group group = _groupManager.State.GropuCollection.Find(p => p.objectId.Equals(groupObjectId.Trim()));
@@ -272,6 +292,68 @@ namespace GrainImplement.CMS.Service
             user.groupObjectId = groupObjectId;
             await _customerManager.WriteStateAsync();
             return new OkResponse("设置用户的组信息成功").ToString();
+        }
+
+        /// <summary>
+        /// 检查API是否可用
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="token"></param>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        async Task<bool> IGroup.CheckAPIPermession(string userName, string token, Type t)
+        {
+            //1. 检查API是否在CMS管理列表
+            if (!CMSHelper.CheckAPIConfigurable(t)) return true;
+            //2. 核查配置权限记录
+            await _customerManager.ReadStateAsync();
+            await _groupManager.ReadStateAsync();
+            Group g = GetGroup(userName, token).Result;
+            return g.apiList.Find(a => a.Contains(t.FullName)) != null;
+        }
+
+        /// <summary>
+        /// API授权
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="token"></param>
+        /// <param name="groupObjectId"></param>
+        /// <param name="APIFullname"></param>
+        /// <returns></returns>
+        async Task<string> IGroup.AuthorizeAPI(string userName, string token, string groupObjectId, string APIFullname)
+        {
+            await _customerManager.ReadStateAsync();
+            int level = GetGroupLevel(userName, token).Result;
+            if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
+            await _groupManager.ReadStateAsync();
+            Group g = _groupManager.State.GropuCollection.Find(p => p.objectId.Equals(groupObjectId));
+            if (g == null) return new FailResponse("未找到用户组").ToString();
+            if (g.apiList.Contains(APIFullname)) return new FailResponse("重复授权").ToString();
+            g.apiList.Add(APIFullname);
+            await _groupManager.WriteStateAsync();
+            return new OkResponse("授权成功").ToString();
+        }
+
+        /// <summary>
+        /// 收回API授权
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="token"></param>
+        /// <param name="groupObjectId"></param>
+        /// <param name="APIFullname"></param>
+        /// <returns></returns>
+        async Task<string> IGroup.WithdrawAPI(string userName, string token, string groupObjectId, string APIFullname)
+        {
+            await _customerManager.ReadStateAsync();
+            int level = GetGroupLevel(userName, token).Result;
+            if (level < Helper.LEVEL.ADMINLEVEL) return Helper.PermissionDeniedResponse;
+            await _groupManager.ReadStateAsync();
+            Group g = _groupManager.State.GropuCollection.Find(p => p.objectId.Equals(groupObjectId));
+            if (g == null) return new FailResponse("未找到用户组").ToString();
+            if (!g.apiList.Contains(APIFullname)) return new FailResponse("未知授权，无法解除").ToString();
+            g.apiList.Remove(APIFullname);
+            await _groupManager.WriteStateAsync();
+            return new OkResponse("解除授权成功").ToString();
         }
 
         #endregion

@@ -1,13 +1,36 @@
 ﻿using Client.HanYangYun.Routes;
 using Client.HanYangYun.Util;
+using Engine.Facility.Helper;
 using GrainInterface.BMS;
-using ServiceStack;
+using GrainInterface.CMS;
+using GrainInterface.WMS;
+using ServiceStack.ServiceInterface;
 using System.IO;
 
 namespace Client.HanYangYun.Services
 {
     public class BMSRestService: Service
     {
+
+        /// <summary>
+        /// 瓦片请求服务
+        /// </summary>
+        /// <param name="request"></param>
+        [AddHeader(ContentType = "image/png")]
+        public Stream Get(Routes.BMSTMSHYLayer request)
+        {
+            try
+            {
+                IWMS wms = Helper.GetGrain<IWMS>(0);
+                Stream sm = wms.GetTileImagePNG(request.x, request.y, request.z).Result;
+                return sm;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// 地理数据供应
         /// </summary>
@@ -67,9 +90,15 @@ namespace Client.HanYangYun.Services
             {
                 using (StreamReader sr = new StreamReader(request.RequestStream))
                 {
-                    IBMSHY bms = Helper.GetGrain<IBMSHY>(0);
-                    string response = bms.TDXXGeoDataUpdate(sr.ReadToEnd()).Result;
-                    return response;
+                    var (userName, token, content) = CMSHelper.SerializeText(sr.ReadToEnd());
+                    IGroup cms = Helper.GetGrain<IGroup>(0);
+                    if(cms.CheckAPIPermession(userName, token, request.GetType()).Result)
+                    {
+                        IBMSHY hybms = Helper.GetGrain<IBMSHY>(0);
+                        string response = hybms.TDXXGeoDataUpdate(sr.ReadToEnd()).Result;
+                        return response;
+                    }
+                    return Helper.PermessionError;
                 }
             }
             catch
