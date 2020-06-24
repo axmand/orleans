@@ -309,7 +309,7 @@ namespace GrainImplement.CMS.Service
             await _customerManager.ReadStateAsync();
             await _groupManager.ReadStateAsync();
             Group g = GetGroup(userName, token).Result;
-            return g.apiList.Find(a => a.Contains(t.FullName)) != null;
+            return g.apiList !=null && g.apiList.Find(a => a.Contains(t.FullName)) != null;
         }
 
         /// <summary>
@@ -328,6 +328,7 @@ namespace GrainImplement.CMS.Service
             await _groupManager.ReadStateAsync();
             Group g = _groupManager.State.GropuCollection.Find(p => p.objectId.Equals(groupObjectId));
             if (g == null) return new FailResponse("未找到用户组").ToString();
+            if (g.apiList == null) g.apiList = new List<string>();
             if (g.apiList.Contains(APIFullname)) return new FailResponse("重复授权").ToString();
             g.apiList.Add(APIFullname);
             await _groupManager.WriteStateAsync();
@@ -350,6 +351,7 @@ namespace GrainImplement.CMS.Service
             await _groupManager.ReadStateAsync();
             Group g = _groupManager.State.GropuCollection.Find(p => p.objectId.Equals(groupObjectId));
             if (g == null) return new FailResponse("未找到用户组").ToString();
+            if(g.apiList == null) return new FailResponse("用户组无可用授权").ToString();
             if (!g.apiList.Contains(APIFullname)) return new FailResponse("未知授权，无法解除").ToString();
             g.apiList.Remove(APIFullname);
             await _groupManager.WriteStateAsync();
