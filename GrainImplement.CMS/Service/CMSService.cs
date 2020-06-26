@@ -301,15 +301,13 @@ namespace GrainImplement.CMS.Service
         /// <param name="token"></param>
         /// <param name="p"></param>
         /// <returns></returns>
-        async Task<bool> IGroup.CheckAPIPermession(string userName, string token, Type t)
+        async Task<bool> IGroup.CheckAPIPermession(string userName, string token, string t)
         {
-            //1. 检查API是否在CMS管理列表
-            if (!CMSHelper.CheckAPIConfigurable(t)) return true;
-            //2. 核查配置权限记录
+            // 核查配置权限记录
             await _customerManager.ReadStateAsync();
             await _groupManager.ReadStateAsync();
             Group g = GetGroup(userName, token).Result;
-            return g.apiList !=null && g.apiList.Find(a => a.Contains(t.FullName)) != null;
+            return g != null && g.apiList !=null && g.apiList.Find(a => a.Contains(t)) != null;
         }
 
         /// <summary>

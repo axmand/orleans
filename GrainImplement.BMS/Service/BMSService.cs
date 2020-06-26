@@ -1,4 +1,5 @@
 ﻿using Engine.Facility.EResponse;
+using GrainImplement.BMS.Persistence;
 using GrainInterface.BMS;
 using NetTopologySuite.Features;
 using NetTopologySuite.Geometries;
@@ -16,13 +17,13 @@ namespace GrainImplement.BMS.Service
 
         #region 内置
 
-        readonly IPersistentState<FeatureCollection> _tdxx;
+        readonly IPersistentState<VOCache> _tdxx;
 
-        readonly IPersistentState<FeatureCollection> _lyxx;
+        readonly IPersistentState<VOCache> _lyxx;
 
         public BMSService(
-            [PersistentState("TDXX", "TDXXCache")] IPersistentState<FeatureCollection> tdxx,
-            [PersistentState("LYXX", "LYXXCache")] IPersistentState<FeatureCollection> lyxx)
+            [PersistentState("TDXX", "TDXXCache")] IPersistentState<VOCache> tdxx,
+            [PersistentState("LYXX", "LYXXCache")] IPersistentState<VOCache> lyxx)
         {
             _tdxx = tdxx;
             _lyxx = lyxx;
@@ -43,19 +44,20 @@ namespace GrainImplement.BMS.Service
         async Task<string> IBMSHY.AccessTDXXGeoData()
         {
             await _tdxx.ReadStateAsync();
-            FeatureCollectionConverter target = new FeatureCollectionConverter();
-            StringBuilder sb = new StringBuilder();
-            using (JsonTextWriter writer = new JsonTextWriter(new StringWriter(sb)))
-            {
-                JsonSerializer serializer = NetTopologySuite.IO.GeoJsonSerializer.Create(
-                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore },
-                    GeometryFactory.Default);
-                target.WriteJson(writer, _tdxx.State, serializer);
-                writer.Flush();
-                writer.Close();
-            }
-            if (sb.Length == 0) return new FailResponse("土地信息数据空").ToString();
-            return new OkResponse(sb.ToString()).ToString();
+            //FeatureCollectionConverter target = new FeatureCollectionConverter();
+            //StringBuilder sb = new StringBuilder();
+            //using (JsonTextWriter writer = new JsonTextWriter(new StringWriter(sb)))
+            //{
+            //    JsonSerializer serializer = NetTopologySuite.IO.GeoJsonSerializer.Create(
+            //        new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore },
+            //        GeometryFactory.Default);
+            //    target.WriteJson(writer, _tdxx.State, serializer);
+            //    writer.Flush();
+            //    writer.Close();
+            //}
+            //if (sb.Length == 0) return new FailResponse("土地信息数据空").ToString();
+
+            return new OkResponse(_tdxx.State.GEOJSON).ToString();
         }
 
         /// <summary>
@@ -65,19 +67,20 @@ namespace GrainImplement.BMS.Service
         async Task<string> IBMSHY.AccessLYXXGeoData()
         {
             await _lyxx.ReadStateAsync();
-            FeatureCollectionConverter target = new FeatureCollectionConverter();
-            StringBuilder sb = new StringBuilder();
-            using (JsonTextWriter writer = new JsonTextWriter(new StringWriter(sb)))
-            {
-                JsonSerializer serializer = NetTopologySuite.IO.GeoJsonSerializer.Create(
-                    new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore },
-                    GeometryFactory.Default);
-                target.WriteJson(writer, _lyxx.State, serializer);
-                writer.Flush();
-                writer.Close();
-            }
-            if (sb.Length == 0) return new FailResponse("土地信息数据空").ToString();
-            return new OkResponse(sb.ToString()).ToString();
+            //FeatureCollectionConverter target = new FeatureCollectionConverter();
+            //StringBuilder sb = new StringBuilder();
+            //using (JsonTextWriter writer = new JsonTextWriter(new StringWriter(sb)))
+            //{
+            //    JsonSerializer serializer = NetTopologySuite.IO.GeoJsonSerializer.Create(
+            //        new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore },
+            //        GeometryFactory.Default);
+            //    target.WriteJson(writer, _lyxx.State, serializer);
+            //    writer.Flush();
+            //    writer.Close();
+            //}
+            //if (sb.Length == 0) return new FailResponse("土地信息数据空").ToString();
+
+            return new OkResponse(_lyxx.State.GEOJSON).ToString();
         }
 
         /// <summary>
@@ -89,6 +92,8 @@ namespace GrainImplement.BMS.Service
         {
             NetTopologySuite.IO.GeoJsonReader reader = new NetTopologySuite.IO.GeoJsonReader();
             FeatureCollection result = reader.Read<FeatureCollection>(geoJsonText);
+            if (result == null) return new FailResponse("数据校验失败").ToString();
+            _lyxx.State.GEOJSON = geoJsonText;
             await _lyxx.WriteStateAsync();
             return new OkResponse("修改土地信息数据集成功").ToString();
         }
@@ -102,6 +107,8 @@ namespace GrainImplement.BMS.Service
         {
             NetTopologySuite.IO.GeoJsonReader reader = new NetTopologySuite.IO.GeoJsonReader();
             FeatureCollection result = reader.Read<FeatureCollection>(geoJsonText);
+            if (result == null) return new FailResponse("数据校验失败").ToString();
+            _tdxx.State.GEOJSON = geoJsonText;
             await _tdxx.WriteStateAsync();
             return new OkResponse("修改土地信息数据集成功").ToString();
         }

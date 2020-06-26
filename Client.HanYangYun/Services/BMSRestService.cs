@@ -5,6 +5,7 @@ using GrainInterface.BMS;
 using GrainInterface.CMS;
 using GrainInterface.WMS;
 using ServiceStack.ServiceInterface;
+using System;
 using System.IO;
 
 namespace Client.HanYangYun.Services
@@ -51,7 +52,7 @@ namespace Client.HanYangYun.Services
                         return Helper.DataError;
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 return Helper.AbnormalError;
             }
@@ -68,9 +69,16 @@ namespace Client.HanYangYun.Services
             {
                 using (StreamReader sr = new StreamReader(request.RequestStream))
                 {
-                    IBMSHY bms = Helper.GetGrain<IBMSHY>(0);
-                    string response = bms.GeoDataLYXXUpdate(sr.ReadToEnd()).Result;
-                    return response;
+                    var (userName, token, content) = CMSHelper.SerializeText(sr.ReadToEnd());
+                    IGroup cms = Helper.GetGrain<IGroup>(0);
+                    Type t = request.GetType();
+                    if (CMSHelper.CheckAPIConfigurable(t) && cms.CheckAPIPermession(userName, token, t.FullName).Result)
+                    {
+                        IBMSHY hybms = Helper.GetGrain<IBMSHY>(0);
+                        string response = hybms.GeoDataLYXXUpdate(content).Result;
+                        return response;
+                    }
+                    return Helper.PermessionError;
                 }
             }
             catch
@@ -92,10 +100,11 @@ namespace Client.HanYangYun.Services
                 {
                     var (userName, token, content) = CMSHelper.SerializeText(sr.ReadToEnd());
                     IGroup cms = Helper.GetGrain<IGroup>(0);
-                    if(cms.CheckAPIPermession(userName, token, request.GetType()).Result)
+                    Type t = request.GetType();
+                    if(CMSHelper.CheckAPIConfigurable(t) && cms.CheckAPIPermession(userName, token, t.FullName).Result)
                     {
                         IBMSHY hybms = Helper.GetGrain<IBMSHY>(0);
-                        string response = hybms.GeoDataTDXXUpdate(sr.ReadToEnd()).Result;
+                        string response = hybms.GeoDataTDXXUpdate(content).Result;
                         return response;
                     }
                     return Helper.PermessionError;

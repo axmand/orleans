@@ -24,7 +24,7 @@ namespace GrainInterface.CMS
         /// <param name="token"></param>
         /// <param name="typeFullname"></param>
         /// <returns></returns>
-        Task<bool> CheckAPIPermession(string userName, string token, Type t);
+        Task<bool> CheckAPIPermession(string userName, string token, string t);
 
         /// <summary>
         /// 创建group，有权限要求
