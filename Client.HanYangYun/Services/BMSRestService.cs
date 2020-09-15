@@ -52,7 +52,7 @@ namespace Client.HanYangYun.Services
                         return Helper.DataError;
                 }
             }
-            catch(Exception ex)
+            catch
             {
                 return Helper.AbnormalError;
             }
