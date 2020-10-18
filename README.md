@@ -14,14 +14,12 @@ kiwi.orleans built on the basis of Mircosoft.Orleans and Mircosoft.CNTK to provi
   <package id="ServiceStack.Redis" version="3.9.71" allowedVersions="[3.9.71]" targetFramework="net462" />
   <package id="ServiceStack.Text" version="3.9.71" allowedVersions="[3.9.71]" targetFramework="net462" />
 ```
-
 ### dependencies ###
 > [Orleans.Sagas](https://github.com/OrleansContrib/Orleans.Sagas) 
 
 > [Orleans.MultiClient](https://github.com/OrleansContrib/Orleans.MultiClient) 
 
 >[Orleans.Providers.MongoDB](https://github.com/OrleansContrib/Orleans.Providers.MongoDB)
-
 
 ### add orleans nuget pacakges ###
 ```
@@ -43,4 +41,13 @@ Grains	Microsoft.Extensions.Logging.Abstractions
 ### configue mongodb ###
 ```
 mongod --dbpath <DB_PATH>
+```
+### core function dependencies ###
+>Engine.GIS:self-encapsulating libary.
+```
+PM> Install-Package Engine.GIS -Version 0.0.0.1
+```
+>Engine.ML.self-encapsulating libary provides CNN,DQN,SVM,RF alogorithms.
+```
+PM> Install-Package Engine.ML -Version 0.0.0.1
 ```
