@@ -42,12 +42,12 @@ Grains	Microsoft.Extensions.Logging.Abstractions
 ```
 mongod --dbpath <DB_PATH>
 ```
-### 功能库依赖 ###
->Engine.GIS
+### core function dependencies ###
+>Engine.GIS:self-encapsulating libary.
 ```
 PM> Install-Package Engine.GIS -Version 0.0.0.1
 ```
->Engine.ML。提供机器学习相关功能，自封口库。
+>Engine.ML.self-encapsulating libary provides CNN,DQN,SVM,RF alogorithms.
 ```
 PM> Install-Package Engine.ML -Version 0.0.0.1
 ```
