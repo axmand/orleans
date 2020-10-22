@@ -1,7 +1,7 @@
 ﻿using Engine.Facility.ECMS;
 using ServiceStack.ServiceHost;
 
-namespace Client.HanYangYun.Routes
+namespace Client.HYY.Routes
 {
     [Api("汉阳区遥感影像TMS数据服务")]
     [Route("/bms/tmslayer/{z}/{x}/{y}", "GET")]

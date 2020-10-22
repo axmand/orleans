@@ -2,7 +2,7 @@
 using ServiceStack;
 using ServiceStack.WebHost.Endpoints;
 
-namespace Client.HanYangYun.Util
+namespace Client.HYY.Util
 {
     /// <summary>
     /// Rest服务

@@ -55,7 +55,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silo.DRL", "Silo.DRL\Silo.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silo.NLP", "Silo.NLP\Silo.NLP.csproj", "{38E07B4B-C48A-42B5-99BF-D0F1099A0E04}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.HanYangYun", "App\Client.HanYangYun\Client.HanYangYun.csproj", "{2EB1E4EA-50D1-4642-B7C0-FD0341B6DBE3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.HYY", "App\Client.HanYangYun\Client.HYY.csproj", "{2EB1E4EA-50D1-4642-B7C0-FD0341B6DBE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

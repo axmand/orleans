@@ -1,6 +1,6 @@
 ﻿using ServiceStack.ServiceHost;
 
-namespace Client.HanYangYun.Routes
+namespace Client.HYY.Routes
 {
     /// <summary>
     /// 用户注册

@@ -1,11 +1,11 @@
-﻿using Client.HanYangYun.Util;
+﻿using Client.HYY.Util;
 using Engine.Facility.Helper;
 using GrainInterface.CMS;
 using ServiceStack.ServiceInterface;
 using System;
 using System.IO;
 
-namespace Client.HanYangYun.Services
+namespace Client.HYY.Services
 {
     public class CMSRestService : Service
     {

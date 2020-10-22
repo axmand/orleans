@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Orleans;
 using System;
 
-namespace Client.HanYangYun.Util
+namespace Client.HYY.Util
 {
     public class Helper
     {

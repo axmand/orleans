@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2EB1E4EA-50D1-4642-B7C0-FD0341B6DBE3}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Client.HanYangYun</RootNamespace>
-    <AssemblyName>Client.HanYangYun</AssemblyName>
+    <RootNamespace>Client.HYY</RootNamespace>
+    <AssemblyName>Client.HYY</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

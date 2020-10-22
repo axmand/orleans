@@ -1,5 +1,5 @@
-﻿using Client.HanYangYun.Routes;
-using Client.HanYangYun.Util;
+﻿using Client.HYY.Routes;
+using Client.HYY.Util;
 using Engine.Facility.Helper;
 using GrainInterface.BMS;
 using GrainInterface.CMS;
@@ -8,7 +8,7 @@ using ServiceStack.ServiceInterface;
 using System;
 using System.IO;
 
-namespace Client.HanYangYun.Services
+namespace Client.HYY.Services
 {
     public class BMSRestService: Service
     {

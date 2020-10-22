@@ -1,4 +1,4 @@
-﻿using Client.HanYangYun.Util;
+﻿using Client.HYY.Util;
 
 using GrainInterface.BMS;
 using GrainInterface.CMS;
@@ -10,7 +10,7 @@ using Orleans;
 
 using System;
 
-namespace Client.HanYangYun
+namespace Client.HYY
 {
     class Program
     {
