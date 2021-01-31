@@ -1,5 +1,6 @@
 ﻿using Funq;
 using ServiceStack;
+using ServiceStack.ServiceInterface.Cors;
 using ServiceStack.WebHost.Endpoints;
 
 namespace Client.HYY.Util
@@ -12,7 +13,14 @@ namespace Client.HYY.Util
         /// <summary>
         /// 
         /// </summary>
-        public AppHost() : base("Services", typeof(Program).Assembly) { }
+        public AppHost() : base("Services", typeof(Program).Assembly)
+        {
+            Plugins.Add(new CorsFeature(
+                allowedOrigins: "*",
+                allowedMethods: "GET, POST, PUT, DELETE, OPTIONS",
+                allowedHeaders: "Content-Type",
+                allowCredentials: false));
+        }
 
         /// <summary>
         /// 
@@ -21,14 +29,14 @@ namespace Client.HYY.Util
         public override void Configure(Container container)
         {
             //跨域
-            //this.Plugins.Add(new CorsFeature());
             base.SetConfig(new EndpointHostConfig()
             {
-                //DebugMode = true,
-                AllowJsonpRequests = true,
+
+                DebugMode = true,
+                //AllowJsonpRequests = true,
                 //EnableFeatures = Feature.All.Remove(Feature.Html),
-                AllowAclUrlReservation = true,
-                EnableAccessRestrictions = true,
+                //AllowAclUrlReservation = true,
+                //EnableAccessRestrictions = true,
                 GlobalResponseHeaders =
                 {
                     { "Access-Control-Allow-Origin", "*" },

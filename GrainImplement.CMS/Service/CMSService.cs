@@ -112,24 +112,18 @@ namespace GrainImplement.CMS.Service
         /// </summary>
         /// <param name="rawText"></param>
         /// <returns></returns>
-        async Task<string> ICustomer.Register(string userName, string userPwd)
+        async Task<string> ICustomer.Register(string rawText)
         {
+            Customer user = JsonConvert.DeserializeObject<Customer>(rawText);
             //1. 检查字段是否合理
-            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userPwd)) return new FailResponse("用户名/密码不符合规则").ToString();
+            if (user == null || !user.Verify()) return new FailResponse("用户名/密码不符合规则").ToString();
             //2. 检查用户名是否已注册
             await _customerManager.ReadStateAsync();
-            Customer result = _customerManager.State.CustomerCollection.Find(p => string.Equals(p.userName, userName));
+            Customer result = _customerManager.State.CustomerCollection.Find(p => string.Equals(p.userName, user.userName));
             if (result != null)
                 return new FailResponse("用户已存在").ToString();
             else
-            {
-                Customer user = new Customer() {
-                    userName = userName,
-                    userPwd = userPwd
-                };
                 _customerManager.State.CustomerCollection.Add(user);
-            }
-               
             //3.同步多端
             await _customerManager.WriteStateAsync();
             return new OkResponse("用户注册成功").ToString();
@@ -168,13 +162,14 @@ namespace GrainImplement.CMS.Service
         /// </summary>
         /// <param name="raw"></param>
         /// <returns></returns>
-        async Task<string> ICustomer.Login(string userName, string userPwd)
+        async Task<string> ICustomer.Login(string rawText)
         {
+            Customer user = JsonConvert.DeserializeObject<Customer>(rawText);
             //1. 检查字段是否合理
-            if ( string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(userPwd)) return new FailResponse("用户名/密码不符合规则").ToString();
+            if (user == null || !user.Verify()) return new FailResponse("用户名/密码不符合规则").ToString();
             //2. 检查、同步各分布式结点状态
             await _customerManager.ReadStateAsync();
-            Customer result = _customerManager.State.CustomerCollection.Find(p => string.Equals(p.userName, userName) && string.Equals(p.userPwd, userPwd));
+            Customer result = _customerManager.State.CustomerCollection.Find(p => string.Equals(p.userName, user.userName) && string.Equals(p.userPwd, user.userPwd));
             if (result != null)
             {
                 //3. 分配guid

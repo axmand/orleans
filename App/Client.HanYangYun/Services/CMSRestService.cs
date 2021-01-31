@@ -18,9 +18,14 @@ namespace Client.HYY.Services
         {
             try
             {
-                ICustomer cms = Helper.GetGrain<ICustomer>(0);
-                string response = cms.Register(request.userName, request.userPwd).Result;
-                return response;
+                using (StreamReader sr = new StreamReader(request.RequestStream))
+                {
+                    string rawText = sr.ReadToEnd();
+                    return rawText;
+                }
+                //ICustomer cms = Helper.GetGrain<ICustomer>(0);
+                //string response = cms.Register(request.userName, request.userPwd).Result;
+                //return response;
             }
             catch
             {
@@ -37,9 +42,15 @@ namespace Client.HYY.Services
         {
             try
             {
-                ICustomer cms = Helper.GetGrain<ICustomer>(0);
-                string response = cms.Login(request.userName, request.userPwd).Result;
-                return response;
+                using(StreamReader sr = new StreamReader(request.RequestStream))
+                {
+                    string rawText = sr.ReadToEnd();
+                    ICustomer cms = Helper.GetGrain<ICustomer>(0);
+                    string response = cms.Login(rawText).Result;
+                    return response;
+                }
+              
+             
             }
             catch
             {
