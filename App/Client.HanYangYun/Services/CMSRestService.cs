@@ -18,12 +18,9 @@ namespace Client.HYY.Services
         {
             try
             {
-                using (StreamReader sr = new StreamReader(request.RequestStream))
-                {
-                    ICustomer cms = Helper.GetGrain<ICustomer>(0);
-                    string response = cms.Register(sr.ReadToEnd()).Result;
-                    return response;
-                }
+                ICustomer cms = Helper.GetGrain<ICustomer>(0);
+                string response = cms.Register(request.userName, request.userPwd).Result;
+                return response;
             }
             catch
             {
@@ -40,12 +37,9 @@ namespace Client.HYY.Services
         {
             try
             {
-                using (StreamReader sr = new StreamReader(request.RequestStream))
-                {
-                    ICustomer cms = Helper.GetGrain<ICustomer>(0);
-                    string response = cms.Login(sr.ReadToEnd()).Result;
-                    return response;
-                }
+                ICustomer cms = Helper.GetGrain<ICustomer>(0);
+                string response = cms.Login(request.userName, request.userPwd).Result;
+                return response;
             }
             catch
             {

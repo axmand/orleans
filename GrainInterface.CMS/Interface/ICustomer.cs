@@ -20,7 +20,7 @@ namespace GrainInterface.CMS
         /// <param name="userName"></param>
         /// <param name="pwd"></param>
         /// <returns></returns>
-        Task<string> Register(string raw);
+        Task<string> Register(string userName, string userPwd);
 
         /// <summary>
         /// 用户登录
@@ -28,7 +28,7 @@ namespace GrainInterface.CMS
         /// <param name="userName"></param>
         /// <param name="pwd"></param>
         /// <returns></returns>
-        Task<string> Login(string rawData);
+        Task<string> Login(string userName, string userPwd);
 
         /// <summary>
         /// 通过用户名搜索用户，有权限要求
