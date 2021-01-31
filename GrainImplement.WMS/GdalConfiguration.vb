@@ -37,7 +37,7 @@ Imports System.Runtime.InteropServices
 Imports Gdal = OSGeo.GDAL.Gdal
 Imports Ogr = OSGeo.OGR.Ogr
 
-Namespace Engine.GIS
+Namespace GrainImplement.WMS
     ''' <summary>
     ''' Configuration class for GDAL/OGR
     ''' </summary>
