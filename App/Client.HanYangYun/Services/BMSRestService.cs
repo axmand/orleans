@@ -69,7 +69,10 @@ namespace Client.HYY.Services
             {
                 using (StreamReader sr = new StreamReader(request.RequestStream))
                 {
-                    var (userName, token, content) = CMSHelper.SerializeText(sr.ReadToEnd());
+                    string ret = sr.ReadToEnd();
+                    if (ret == "")
+                        ret = sr.ReadToEnd();
+                    var (userName, token, content) = CMSHelper.SerializeText(ret);
                     IGroup cms = Helper.GetGrain<IGroup>(0);
                     Type t = request.GetType();
                     if (CMSHelper.CheckAPIConfigurable(t) && cms.CheckAPIPermession(userName, token, t.FullName).Result)

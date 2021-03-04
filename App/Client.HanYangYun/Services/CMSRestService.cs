@@ -21,11 +21,12 @@ namespace Client.HYY.Services
                 using (StreamReader sr = new StreamReader(request.RequestStream))
                 {
                     string rawText = sr.ReadToEnd();
-                    return rawText;
+                    //return rawText;
+                    ICustomer cms = Helper.GetGrain<ICustomer>(0);
+                    string response = cms.Register(rawText).Result;
+                    return response;
                 }
-                //ICustomer cms = Helper.GetGrain<ICustomer>(0);
-                //string response = cms.Register(request.userName, request.userPwd).Result;
-                //return response;
+
             }
             catch
             {
